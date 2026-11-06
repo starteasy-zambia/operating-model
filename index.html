@@ -3,19 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>StartEasy Zambia | Operating Model</title>
+<title>StartEasy Zambia | End-to-End Operating Model</title>
 <style>
   /* =========================================
-     BASE & VARIABLES
+     DESIGN SYSTEM & VARIABLES
      ========================================= */
   :root {
+    --bg-dark: #0F172A;
     --bg-body: #F8FAFC;
     --bg-card: #FFFFFF;
-    --text-main: #0F172A;
-    --text-muted: #475569;
-    --border: #E2E8F0;
     
-    /* Primary Colors */
+    --text-main: #1E293B;
+    --text-muted: #64748B;
+    --text-light: #F8FAFC;
+    
     --primary: #0F766E;
     --primary-light: #CCFBF1;
     
@@ -29,24 +30,24 @@
     --green-icon: #10B981;
     --green-text: #064E3B;
     
+    --border: #E2E8F0;
+    --radius: 16px;
     --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
     --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
     --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.05);
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
   body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     background-color: var(--bg-body);
     color: var(--text-main);
-    line-height: 1.5;
-    font-size: 15px;
+    line-height: 1.6;
     -webkit-font-smoothing: antialiased;
   }
 
   .container {
-    max-width: 1100px;
+    max-width: 1000px;
     margin: 0 auto;
     padding: 0 20px;
   }
@@ -55,7 +56,7 @@
      HERO HEADER
      ========================================= */
   header {
-    background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+    background: var(--bg-dark);
     color: white;
     padding: 60px 20px;
     text-align: center;
@@ -70,9 +71,23 @@
   header p {
     font-size: 18px;
     color: #94A3B8;
-    max-width: 700px;
+    max-width: 800px;
     margin: 0 auto;
   }
+  .hero-flow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--primary-light);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .hero-flow span { opacity: 0.5; }
 
   /* =========================================
      SECTION STYLES
@@ -100,7 +115,7 @@
   }
 
   /* =========================================
-     THE RESTORED LIFECYCLE FLOW
+     1. THE EXACT LIFECYCLE DESIGN (Restored)
      ========================================= */
   .lifecycle-flow {
     display: flex;
@@ -112,7 +127,7 @@
   }
   .lifecycle-card {
     background: #ffffff;
-    border-radius: 16px;
+    border-radius: var(--radius);
     padding: 30px 24px;
     width: 100%;
     text-align: center;
@@ -140,7 +155,7 @@
   .arrow-down svg { width: 20px; height: 20px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
 
   /* =========================================
-     ORG & HANDOVERS (Tables)
+     2. HANDOVERS & DEPARTMENTS (Grid)
      ========================================= */
   .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
   @media (max-width: 768px) { .grid-2 { grid-template-columns: 1fr; } }
@@ -160,16 +175,13 @@
   tr:last-child td { border-bottom: none; }
 
   /* =========================================
-     SYSTEMS
+     3. SYSTEMS & PIPELINE
      ========================================= */
-  .systems-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-  .system-card { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 24px; box-shadow: var(--shadow-sm); }
+  .systems-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 40px; }
+  .system-card { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 20px; box-shadow: var(--shadow-sm); }
   .system-card h4 { margin: 0 0 8px 0; font-size: 16px; color: var(--text-main); }
-  .system-card p { margin: 0; font-size: 14px; color: var(--text-muted); }
+  .system-card p { margin: 0; font-size: 13px; color: var(--text-muted); }
 
-  /* =========================================
-     PIPELINE
-     ========================================= */
   .pipeline-wrapper { overflow-x: auto; padding-bottom: 16px; }
   .pipeline { display: flex; align-items: center; gap: 8px; min-width: max-content; }
   .pipe-step { background: white; border: 1px solid var(--border); padding: 10px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; box-shadow: var(--shadow-sm); }
@@ -180,7 +192,7 @@
   .tag-red { background: #FEF2F2; color: #991B1B; border: 1px solid #FECACA; padding: 6px 12px; border-radius: 99px; font-size: 13px; font-weight: 600; }
 
   /* =========================================
-     KPIs
+     4. KPIs
      ========================================= */
   .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
   .kpi-card { background: white; border-top: 4px solid var(--primary); border-radius: 8px; padding: 20px; box-shadow: var(--shadow-sm); border-left: 1px solid var(--border); border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
@@ -190,11 +202,11 @@
   .kpi-label { font-size: 14px; font-weight: 600; color: var(--text-main); }
   .kpi-desc { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
 
-  .formula-box { background: #0F172A; color: #E2E8F0; padding: 16px; border-radius: 8px; font-family: monospace; font-size: 14px; margin-top: 24px; text-align: center; }
+  .formula-box { background: var(--bg-dark); color: #E2E8F0; padding: 16px; border-radius: 8px; font-family: monospace; font-size: 14px; margin-top: 24px; text-align: center; }
   .formula-box span { color: #5EEAD4; font-weight: bold; }
 
   /* =========================================
-     JOB RECORD CARD
+     5. SERVICE JOB ID CARD
      ========================================= */
   .job-record { max-width: 800px; margin: 0 auto; background: white; border-radius: 12px; overflow: hidden; box-shadow: var(--shadow-lg); border: 1px solid var(--border); }
   .job-header { background: var(--primary); color: white; padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; }
@@ -220,14 +232,17 @@
 
 <header>
   <div class="container">
-    <h1>StartEasy Zambia</h1>
+    <h1>STARTEASY ZAMBIA</h1>
     <p>End-to-End Business Operations & Customer Journey. A single, integrated operating system for customer acquisition, sales, and service delivery.</p>
+    <div class="hero-flow">
+      Marketing <span>→</span> Lead Gen <span>→</span> Acquisition <span>→</span> Sales <span>→</span> Quotation <span>→</span> Payment <span>→</span> Delivery <span>→</span> Retention
+    </div>
   </div>
 </header>
 
 <main>
 
-  <!-- 1. THE COMPLETE CUSTOMER LIFECYCLE (Restored Design) -->
+  <!-- 1. THE COMPLETE CUSTOMER LIFECYCLE (Exact match to screenshots) -->
   <section id="lifecycle">
     <div class="container">
       <div class="section-title">
@@ -374,7 +389,7 @@
         <p>Avoid purchasing disconnected tools. Build one integrated system on GitHub and Firebase.</p>
       </div>
 
-      <div class="systems-grid" style="margin-bottom: 48px;">
+      <div class="systems-grid">
         <div class="system-card">
           <h4>CRM</h4>
           <p>Stores customer information and tracks leads, sales and relationships.</p>
