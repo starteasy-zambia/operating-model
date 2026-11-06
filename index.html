@@ -1,0 +1,1562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StartEasy Zambia · Platform</title>
+<style>
+:root{
+  --primary:#0F766E; --primary-600:#0D9488; --primary-700:#115E59;
+  --bg:#F1F5F9; --card:#FFFFFF; --border:#E2E8F0; --border-2:#CBD5E1;
+  --text:#0F172A; --muted:#64748B; --muted-2:#94A3B8;
+  --success:#10B981; --warning:#F59E0B; --danger:#EF4444; --info:#3B82F6;
+  --shadow:0 1px 3px rgba(15,23,42,.06),0 1px 2px rgba(15,23,42,.04);
+  --radius:10px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+  background:var(--bg);color:var(--text);font-size:14px;line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+button,input,select,textarea{font-family:inherit;font-size:inherit}
+button{cursor:pointer}
+a{color:var(--primary);text-decoration:none}
+a:hover{text-decoration:underline}
+
+.topbar{
+  background:#0F172A;color:#fff;padding:0 20px;height:56px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  position:sticky;top:0;z-index:100;
+}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:16px}
+.brand-mark{
+  width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,#0D9488,#10B981);
+  display:grid;place-items:center;color:#fff;font-weight:800;font-size:14px;
+}
+.brand small{color:#94A3B8;font-weight:500;margin-left:6px;font-size:11px;letter-spacing:.04em}
+.topbar-actions{display:flex;align-items:center;gap:10px}
+.role-select{
+  background:#1E293B;border:1px solid #334155;color:#fff;border-radius:8px;
+  padding:6px 10px;font-size:13px;cursor:pointer;
+}
+.role-select:focus{outline:2px solid var(--primary-600)}
+.tb-btn{
+  background:transparent;border:1px solid #334155;color:#E2E8F0;
+  border-radius:8px;padding:6px 12px;font-size:13px;
+}
+.tb-btn:hover{background:#1E293B}
+
+.layout{display:flex;min-height:calc(100vh - 56px)}
+.sidebar{
+  width:230px;background:var(--card);border-right:1px solid var(--border);
+  padding:16px 10px;flex-shrink:0;
+}
+.sidebar h4{
+  font-size:11px;text-transform:uppercase;letter-spacing:.08em;
+  color:var(--muted-2);padding:8px 12px;margin-top:4px;
+}
+.nav-item{
+  display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;
+  color:var(--muted);font-weight:500;cursor:pointer;margin-bottom:2px;
+  border:none;background:none;width:100%;text-align:left;font-size:13.5px;
+}
+.nav-item:hover{background:#F8FAFC;color:var(--text)}
+.nav-item.active{background:#ECFDF5;color:var(--primary-700);font-weight:600}
+.nav-item .dot{width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.5}
+.main{flex:1;padding:24px;overflow-x:auto;max-width:100%}
+
+.page-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px}
+.page-head h1{font-size:22px;font-weight:700}
+.page-head p{color:var(--muted);font-size:13px;margin-top:2px}
+.card{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
+  box-shadow:var(--shadow);padding:18px;
+}
+.card h3{font-size:14px;font-weight:600;margin-bottom:12px;color:var(--muted)}
+
+.btn{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:7px 14px;border-radius:8px;border:1px solid var(--border-2);
+  background:#fff;color:var(--text);font-weight:500;font-size:13px;
+  transition:all .15s;
+}
+.btn:hover{background:#F8FAFC;border-color:var(--muted-2)}
+.btn-primary{background:var(--primary);border-color:var(--primary);color:#fff}
+.btn-primary:hover{background:var(--primary-700);border-color:var(--primary-700)}
+.btn-success{background:var(--success);border-color:var(--success);color:#fff}
+.btn-success:hover{filter:brightness(.95)}
+.btn-danger{background:#fff;border-color:#FCA5A5;color:var(--danger)}
+.btn-danger:hover{background:#FEF2F2}
+.btn-sm{padding:4px 10px;font-size:12px}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+
+.badge{
+  display:inline-block;padding:2px 8px;border-radius:999px;
+  font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.03em;
+}
+.badge-info{background:#DBEAFE;color:#1E40AF}
+.badge-success{background:#D1FAE5;color:#065F46}
+.badge-warning{background:#FEF3C7;color:#92400E}
+.badge-danger{background:#FEE2E2;color:#991B1B}
+.badge-muted{background:#F1F5F9;color:#475569}
+
+.muted{color:var(--muted);font-size:12.5px}
+.mono{font-family:'SF Mono',Menlo,Consolas,monospace;font-size:12.5px}
+.grid{display:grid;gap:16px}
+.grid-2{grid-template-columns:repeat(2,1fr)}
+.grid-3{grid-template-columns:repeat(3,1fr)}
+.grid-4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:900px){.grid-4,.grid-3{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.grid-4,.grid-3,.grid-2{grid-template-columns:1fr}}
+
+table{width:100%;border-collapse:collapse;font-size:13px}
+table th{
+  text-align:left;font-weight:600;font-size:11px;text-transform:uppercase;
+  letter-spacing:.05em;color:var(--muted);padding:10px 12px;
+  border-bottom:1px solid var(--border);background:#F8FAFC;
+}
+table td{padding:12px;border-bottom:1px solid var(--border);vertical-align:middle}
+table tr:last-child td{border-bottom:none}
+table tr:hover td{background:#FAFCFD}
+.table-wrap{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+
+.kpi{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
+.kpi .label{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600}
+.kpi .value{font-size:26px;font-weight:700;margin-top:6px;line-height:1.1}
+.kpi .sub{font-size:12px;color:var(--muted);margin-top:4px}
+
+.kanban{display:grid;grid-auto-flow:column;grid-auto-columns:220px;gap:12px;overflow-x:auto;padding-bottom:8px}
+.kcol{background:#F8FAFC;border:1px solid var(--border);border-radius:var(--radius);padding:10px;min-height:200px}
+.kcol h5{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
+.kcol h5 .count{background:#E2E8F0;color:var(--muted);padding:1px 7px;border-radius:999px;font-size:11px}
+.kcard{background:#fff;border:1px solid var(--border);border-radius:8px;padding:10px;margin-bottom:8px;font-size:12.5px;box-shadow:0 1px 2px rgba(15,23,42,.03)}
+.kcard strong{display:block;margin-bottom:2px}
+.kcard .svc{color:var(--muted);font-size:11.5px}
+
+.modal-backdrop{
+  position:fixed;inset:0;background:rgba(15,23,42,.5);z-index:200;
+  display:grid;place-items:center;padding:20px;
+}
+.modal{
+  background:#fff;border-radius:12px;max-width:560px;width:100%;
+  max-height:90vh;overflow-y:auto;box-shadow:0 20px 50px rgba(0,0,0,.25);
+  padding:24px;
+}
+.modal h2{font-size:18px;margin-bottom:4px}
+.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:20px;padding-top:16px;border-top:1px solid var(--border)}
+.service-picker{display:flex;flex-direction:column;gap:8px;margin:16px 0}
+.svc-item{
+  display:flex;align-items:flex-start;gap:10px;padding:10px 12px;border:1px solid var(--border);
+  border-radius:8px;cursor:pointer;transition:all .15s;
+}
+.svc-item:hover{background:#F8FAFC;border-color:var(--border-2)}
+.svc-item input{margin-top:3px}
+.svc-item strong{display:block;font-size:13px}
+
+.field{margin-bottom:14px}
+.field label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:5px;text-transform:uppercase;letter-spacing:.03em}
+.field input,.field select,.field textarea{
+  width:100%;padding:9px 11px;border:1px solid var(--border-2);border-radius:8px;
+  font-size:14px;background:#fff;color:var(--text);
+}
+.field input:focus,.field select:focus,.field textarea:focus{
+  outline:none;border-color:var(--primary-600);box-shadow:0 0 0 3px rgba(13,148,136,.12);
+}
+.field textarea{resize:vertical;min-height:80px}
+
+.toast{
+  position:fixed;bottom:24px;left:50%;transform:translate(-50%,20px);
+  background:#0F172A;color:#fff;padding:10px 18px;border-radius:8px;
+  font-size:13px;font-weight:500;box-shadow:0 8px 24px rgba(0,0,0,.25);
+  opacity:0;transition:all .25s;z-index:300;pointer-events:none;
+}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+.public-wrap{background:#fff}
+.pub-nav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 32px;border-bottom:1px solid var(--border);background:#fff;
+  position:sticky;top:56px;z-index:50;
+}
+.pub-nav .links{display:flex;gap:24px;font-size:14px;font-weight:500}
+.pub-nav .links a{color:var(--muted)}
+.pub-nav .links a:hover{color:var(--primary);text-decoration:none}
+.hero{
+  padding:70px 32px 60px;text-align:center;
+  background:linear-gradient(180deg,#F0FDFA 0%,#fff 100%);
+}
+.hero .eyebrow{
+  display:inline-block;background:#ECFDF5;color:var(--primary-700);
+  padding:5px 12px;border-radius:999px;font-size:12px;font-weight:600;
+  letter-spacing:.04em;margin-bottom:16px;
+}
+.hero h1{font-size:42px;line-height:1.15;font-weight:800;letter-spacing:-.02em;max-width:800px;margin:0 auto 18px}
+.hero h1 span{color:var(--primary)}
+.hero p{font-size:17px;color:var(--muted);max-width:600px;margin:0 auto 28px}
+.hero-cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.hero-cta .btn{padding:11px 22px;font-size:14px}
+.hero-stats{display:flex;justify-content:center;gap:48px;margin-top:48px;flex-wrap:wrap}
+.hero-stats .stat{text-align:center}
+.hero-stats .stat .n{font-size:28px;font-weight:800;color:var(--primary)}
+.hero-stats .stat .l{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-top:2px}
+
+.section{padding:60px 32px;max-width:1100px;margin:0 auto}
+.section-head{text-align:center;margin-bottom:40px}
+.section-head h2{font-size:28px;font-weight:800;letter-spacing:-.01em;margin-bottom:8px}
+.section-head p{color:var(--muted);font-size:15px}
+
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:800px){.svc-grid{grid-template-columns:1fr}}
+.svc-card{border:1px solid var(--border);border-radius:12px;padding:22px;transition:all .2s;background:#fff}
+.svc-card:hover{border-color:var(--primary-600);box-shadow:0 4px 16px rgba(13,148,136,.08);transform:translateY(-2px)}
+.svc-card .icon{
+  width:40px;height:40px;border-radius:10px;background:#ECFDF5;color:var(--primary-700);
+  display:grid;place-items:center;font-size:18px;margin-bottom:14px;
+}
+.svc-card h3{font-size:16px;font-weight:700;margin-bottom:6px}
+.svc-card p{color:var(--muted);font-size:13.5px;margin-bottom:14px}
+.svc-card .price{font-size:13px;color:var(--primary-700);font-weight:600}
+
+.enquiry-wrap{background:#F8FAFC;padding:60px 32px}
+.enquiry-card{max-width:640px;margin:0 auto;background:#fff;border-radius:14px;box-shadow:0 4px 24px rgba(15,23,42,.06);padding:32px}
+.enquiry-card h2{font-size:22px;font-weight:700;margin-bottom:4px}
+.enquiry-card .lede{color:var(--muted);font-size:14px;margin-bottom:22px}
+
+.pub-footer{background:#0F172A;color:#94A3B8;padding:36px 32px;text-align:center;font-size:13px}
+.pub-footer strong{color:#fff}
+
+.portal-hero{background:linear-gradient(135deg,#0F766E,#0D9488);color:#fff;border-radius:var(--radius);padding:22px 24px;margin-bottom:20px}
+.portal-hero h2{font-size:20px;font-weight:700}
+.portal-hero p{opacity:.85;font-size:13px;margin-top:4px}
+
+.progress{height:6px;background:#E2E8F0;border-radius:999px;overflow:hidden;margin-top:10px}
+.progress-bar{height:100%;background:var(--primary);transition:width .3s;border-radius:999px}
+
+.task-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--border);font-size:13.5px}
+.task-row:last-child{border-bottom:none}
+.task-row.done .task-name{text-decoration:line-through;color:var(--muted)}
+.task-row input[type=checkbox]{width:16px;height:16px;cursor:pointer;accent-color:var(--primary)}
+.task-svc{font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted-2);font-weight:600}
+
+.empty{text-align:center;padding:40px 20px;color:var(--muted);font-size:13.5px}
+.empty strong{display:block;color:var(--text);font-size:15px;margin-bottom:4px}
+
+.callout{background:#F0FDFA;border:1px solid #99F6E4;border-radius:var(--radius);padding:16px;display:flex;gap:12px;align-items:flex-start;margin-bottom:16px}
+.callout .ico{font-size:20px;line-height:1}
+.callout strong{display:block;margin-bottom:3px;color:var(--primary-700)}
+.callout p{font-size:13px;color:#134E4A}
+
+.job-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;margin-bottom:16px}
+.job-meta{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px;padding:12px;background:#F8FAFC;border-radius:8px;font-size:12.5px}
+@media(max-width:700px){.job-meta{grid-template-columns:repeat(2,1fr)}}
+.job-meta .lbl{font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);font-weight:600;margin-bottom:2px}
+.job-id{font-family:'SF Mono',Menlo,Consolas,monospace;font-size:13px;color:var(--primary-700);font-weight:700;background:#ECFDF5;padding:2px 8px;border-radius:6px}
+
+.formula-box{background:#fff;border:1px solid #99F6E4;border-radius:8px;padding:12px 14px;font-family:'SF Mono',Menlo,Consolas,monospace;font-size:13px;color:#134E4A;display:inline-block;margin-top:6px}
+
+.dept-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
+.dept-card h4{font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--primary-700);margin-bottom:12px;font-weight:700}
+.dept-kpi{padding:10px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.dept-kpi:last-child{border-bottom:none}
+.dept-kpi .kl{font-size:12.5px;color:var(--muted)}
+.dept-kpi .kv{font-size:16px;font-weight:700}
+
+@media(max-width:800px){
+  .sidebar{width:64px;padding:12px 6px}
+  .sidebar h4{display:none}
+  .nav-item{justify-content:center;padding:10px 0;font-size:0}
+  .nav-item .dot{width:8px;height:8px;opacity:.9}
+  .main{padding:16px}
+  .hero h1{font-size:30px}
+  .pub-nav{padding:12px 16px}
+  .pub-nav .links{display:none}
+  .section{padding:40px 16px}
+}
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+<script>
+/* =============================================================
+   STARTEASY PLATFORM — SPA prototype (v2)
+   Adds: KPIs view · Handovers view · Systems view
+         Service Job IDs · Enhanced job cards
+   ============================================================= */
+
+// ============ CATALOG ============
+const SERVICES = [
+  { id:'pacra',   name:'PACRA Company Registration', govt:350,  fee:800,  days:7,  desc:'Limited company registration with PACRA including certificate of incorporation.', tasks:['Name search','Prepare Memorandum & Articles','Submit registration','Collect certificate','QC review'] },
+  { id:'zra',     name:'ZRA TPIN Registration',       govt:0,    fee:400,  days:3,  desc:'Taxpayer identification number registration for tax compliance.', tasks:['Prepare application','Submit to ZRA','Collect TPIN certificate'] },
+  { id:'council', name:'Council Business License',    govt:600,  fee:500,  days:10, desc:'Municipal business license for trading within a local council area.', tasks:['Prepare council forms','Submit to council','Pay council fees','Collect license'] },
+  { id:'zema',    name:'ZEMA Compliance',             govt:1200, fee:1500, days:20, desc:'Environmental compliance assessment and ZEMA decision letter.', tasks:['Conduct EIA assessment','Prepare ZEMA application','Submit to ZEMA','Facilitate inspection','Receive decision letter'] },
+  { id:'book',    name:'Bookkeeping (monthly)',       govt:0,    fee:1500, days:30, desc:'Monthly bookkeeping, reconciliations and management reports.', tasks:['Collect receipts','Reconcile accounts','Prepare monthly reports','Client review'] },
+  { id:'plan',    name:'Business Plan',               govt:0,    fee:2500, days:14, desc:'Investor-ready business plan and financial projections.', tasks:['Discovery session','Draft business plan','Internal review','Client review','Finalize'] }
+];
+
+const SYSTEMS = [
+  { name:'CRM', purpose:'Stores customer information and tracks leads, sales and relationships.', inPlatform:'Lead records, customer records, activity timeline, pipeline stages, scoring' },
+  { name:'Sales tools', purpose:'Help salespeople communicate, follow up, prepare quotations and close deals.', inPlatform:'Quote builder, approval flow, e-signature acceptance, follow-up reminders' },
+  { name:'Marketing tools', purpose:'Manage campaigns, advertising and lead generation.', inPlatform:'Public site, lead capture forms, source tracking, referral codes, UTM capture' },
+  { name:'Finance tools', purpose:'Manage invoicing, payments and accounting.', inPlatform:'Invoice generation, payment confirmation, receipts, collection reporting' },
+  { name:'Project / service management tools', purpose:'Assign jobs, track progress and manage delivery.', inPlatform:'Service Job IDs, task checklists, QC review, handover records, SLA timers' }
+];
+
+const HANDOVERS = [
+  { process:'Marketing campaign',            accountable:'Marketing',              handover:'Sales' },
+  { process:'Lead qualification',            accountable:'Sales',                  handover:'Sales' },
+  { process:'Customer consultation',         accountable:'Sales',                  handover:'Operations, if technical assessment needed' },
+  { process:'Service pricing',               accountable:'Finance + Operations',   handover:'Sales' },
+  { process:'Quotation and negotiation',     accountable:'Sales',                  handover:'Finance' },
+  { process:'Payment verification',          accountable:'Finance',                handover:'Operations' },
+  { process:'Customer onboarding',           accountable:'Sales',                  handover:'Operations' },
+  { process:'Service execution',             accountable:'Operations',             handover:'Customer Support' },
+  { process:'Quality assurance',             accountable:'Operations',             handover:'Customer' },
+  { process:'Retention and referrals',       accountable:'Customer Support / Sales', handover:'Marketing' }
+];
+
+function serviceById(id){ return SERVICES.find(s=>s.id===id); }
+
+// ============ STATUS FLOWS ============
+const LEAD_FLOW = ['NEW','CONTACTED','QUALIFIED','QUOTED','WON'];
+
+// ============ ROLES & NAV ============
+const ROLE_CONFIG = {
+  public:   { label:'Public Site',      views:['site'],                                                         default:'site' },
+  sales:    { label:'Sales Rep',        views:['crm','pipeline','quotes'],                                       default:'crm' },
+  ops:      { label:'Operations',       views:['jobs'],                                                          default:'jobs' },
+  finance:  { label:'Finance Officer',  views:['invoices'],                                                      default:'invoices' },
+  manager:  { label:'Manager',          views:['dashboard','kpis','handovers','crm','pipeline','quotes','invoices','jobs'], default:'dashboard' },
+  admin:    { label:'Admin',            views:['dashboard','kpis','handovers','systems','crm','pipeline','quotes','invoices','jobs','settings'], default:'dashboard' },
+  customer: { label:'Customer Portal',  views:['portal'],                                                        default:'portal' }
+};
+
+const VIEW_LABELS = {
+  site:'Home', dashboard:'Dashboard', kpis:'KPIs', handovers:'Handovers', systems:'Systems',
+  crm:'Leads', pipeline:'Pipeline', quotes:'Quotes',
+  invoices:'Invoices', jobs:'Jobs', portal:'My Account', settings:'Settings'
+};
+
+// ============ STATE ============
+const state = { role:'public', view:'site', modal:null, currentCustomerId:'C1' };
+
+// ============ STORE ============
+const KEY = 'starteasy_platform_v2';
+let DB;
+
+function seed(){
+  const now = Date.now();
+  const H = 3600000, D = 86400000;
+  return {
+    leads: [
+      { id:'L1', name:'Grace Phiri', phone:'+260 971 234 567', email:'grace.phiri@example.zm',
+        service:'pacra', needs:'Starting a logistics company in Lusaka', source:'Facebook',
+        status:'NEW', score:8, assigned:'sales@starteasy.zm', created: now-2*H, customerId:null,
+        activity:[{ts:now-2*H, text:'Enquiry received via Facebook'}] },
+      { id:'L2', name:'Joseph Tembo', phone:'+260 961 345 678', email:'j.tembo@example.zm',
+        service:'zra', needs:'Need TPIN for consulting business', source:'Google',
+        status:'CONTACTED', score:6, assigned:'sales@starteasy.zm', created: now-1*D,
+        activity:[{ts:now-1*D, text:'Enquiry received via website'},{ts:now-20*H, text:'Called customer — interested, sending details'}] },
+      { id:'L3', name:'Mary Nkonde', phone:'+260 977 456 789', email:'mary.n@example.zm',
+        service:'council', needs:'Retail shop — needs council license for Lusaka CBD', source:'Referral',
+        status:'QUALIFIED', score:9, assigned:'sales@starteasy.zm', created: now-2*D,
+        activity:[{ts:now-2*D, text:'Enquiry received via referral'},{ts:now-36*H, text:'Called customer — business ready, budget confirmed'}] },
+      { id:'L4', name:'Peter Mulenga', phone:'+260 966 567 890', email:'p.mulenga@example.zm',
+        service:'zema', needs:'Manufacturing — needs ZEMA clearance and PACRA', source:'LinkedIn',
+        status:'QUOTED', score:7, assigned:'sales@starteasy.zm', created: now-3*D,
+        activity:[{ts:now-3*D, text:'Enquiry received via LinkedIn'},{ts:now-2*D, text:'Needs assessment completed'},{ts:now-1*D, text:'Quotation Q1 sent'}] },
+      { id:'L5', name:'Sarah Chileshe', phone:'+260 955 678 901', email:'sarah.c@example.zm',
+        service:'pacra', needs:'Full registration package', source:'Facebook',
+        status:'WON', score:10, assigned:'sales@starteasy.zm', created: now-14*D, customerId:'C1',
+        activity:[{ts:now-14*D, text:'Enquiry received'},{ts:now-13*D, text:'Needs assessed'},{ts:now-12*D, text:'Quotation Q2 sent'},{ts:now-10*D, text:'Quote accepted'},{ts:now-9*D, text:'Payment confirmed'}] },
+      { id:'L6', name:'David Banda', phone:'+260 977 890 123', email:'d.banda@example.zm',
+        service:'pacra', needs:'Register limited company + TPIN', source:'Referral',
+        status:'WON', score:9, assigned:'sales@starteasy.zm', created: now-8*D, customerId:'C2',
+        activity:[{ts:now-8*D, text:'Enquiry received via referral'},{ts:now-6*D, text:'Quotation Q3 sent'},{ts:now-4*D, text:'Quote accepted'},{ts:now-3*D, text:'Payment confirmed'}] },
+      { id:'L7', name:'Linda Mwansa', phone:'+260 966 234 567', email:'l.mwansa@example.zm',
+        service:'pacra', needs:'Register company for family business', source:'Website',
+        status:'WON', score:8, assigned:'sales@starteasy.zm', created: now-5*D, customerId:'C3',
+        activity:[{ts:now-5*D, text:'Enquiry received via website'},{ts:now-3*D, text:'Quotation Q4 sent'},{ts:now-1*D, text:'Quote accepted'},{ts:now-1*D, text:'Payment confirmed'}] },
+      { id:'L8', name:'Tom Zulu', phone:'+260 955 111 222', email:'t.zulu@example.zm',
+        service:'pacra', needs:'Exploring registration options', source:'Google',
+        status:'LOST', score:4, assigned:'sales@starteasy.zm', created: now-6*D,
+        activity:[{ts:now-6*D, text:'Enquiry received'},{ts:now-4*D, text:'Customer declined — went with another provider'}] },
+      { id:'L9', name:'Ruth Mbewe', phone:'+260 971 999 888', email:'r.mbewe@example.zm',
+        service:'council', needs:'Restaurant licence for new premises', source:'Facebook',
+        status:'WON', score:9, assigned:'sales@starteasy.zm', created: now-2*D, customerId:'C4',
+        activity:[{ts:now-2*D, text:'Enquiry received via Facebook'},{ts:now-1*D, text:'Quotation Q5 accepted'}] }
+    ],
+    customers: [
+      { id:'C1', name:'Sarah Chileshe', phone:'+260 955 678 901', email:'sarah.c@example.zm', business:'Chileshe Trading Ltd', leadId:'L5', created: now-10*D },
+      { id:'C2', name:'David Banda',    phone:'+260 977 890 123', email:'d.banda@example.zm',  business:'Banda Logistics Ltd',   leadId:'L6', created: now-4*D },
+      { id:'C3', name:'Linda Mwansa',   phone:'+260 966 234 567', email:'l.mwansa@example.zm', business:'Mwansa Family Foods',   leadId:'L7', created: now-1*D },
+      { id:'C4', name:'Ruth Mbewe',     phone:'+260 971 999 888', email:'r.mbewe@example.zm',  business:'Mbewe Kitchen Ltd',     leadId:'L9', created: now-1*D }
+    ],
+    quotes: [
+      { id:'Q1', leadId:'L4', customerId:null, items:[{service:'pacra', govt:350, fee:800},{service:'zema', govt:1200, fee:1500}],
+        status:'SENT', created: now-1*D, validUntil: now+29*D, acceptedAt:null, activity:[{ts:now-1*D, text:'Quotation sent'}] },
+      { id:'Q2', leadId:'L5', customerId:'C1', items:[{service:'pacra', govt:350, fee:800},{service:'zra', govt:0, fee:400}],
+        status:'ACCEPTED', created: now-12*D, validUntil: now+18*D, acceptedAt: now-10*D, activity:[{ts:now-12*D, text:'Sent'},{ts:now-10*D, text:'Accepted'}] },
+      { id:'Q3', leadId:'L6', customerId:'C2', items:[{service:'pacra', govt:350, fee:800},{service:'zra', govt:0, fee:400}],
+        status:'ACCEPTED', created: now-6*D, validUntil: now+24*D, acceptedAt: now-4*D, activity:[{ts:now-6*D, text:'Sent'},{ts:now-4*D, text:'Accepted'}] },
+      { id:'Q4', leadId:'L7', customerId:'C3', items:[{service:'pacra', govt:350, fee:800}],
+        status:'ACCEPTED', created: now-3*D, validUntil: now+27*D, acceptedAt: now-1*D, activity:[{ts:now-3*D, text:'Sent'},{ts:now-1*D, text:'Accepted'}] },
+      { id:'Q5', leadId:'L9', customerId:'C4', items:[{service:'council', govt:600, fee:500}],
+        status:'ACCEPTED', created: now-1*D, validUntil: now+29*D, acceptedAt: now-1*D, activity:[{ts:now-1*D, text:'Sent'},{ts:now-1*D, text:'Accepted'}] }
+    ],
+    invoices: [
+      { id:'I2', quoteId:'Q2', customerId:'C1', items:[{service:'pacra', govt:350, fee:800},{service:'zra', govt:0, fee:400}],
+        status:'PAID', issued: now-10*D, paidAt: now-9*D, method:'MTN MoMo', ref:'MOMO-8842', activity:[] },
+      { id:'I3', quoteId:'Q3', customerId:'C2', items:[{service:'pacra', govt:350, fee:800},{service:'zra', govt:0, fee:400}],
+        status:'PAID', issued: now-4*D, paidAt: now-3*D, method:'Bank Transfer', ref:'ZANACO-7731', activity:[] },
+      { id:'I4', quoteId:'Q4', customerId:'C3', items:[{service:'pacra', govt:350, fee:800}],
+        status:'PAID', issued: now-1*D, paidAt: now-1*D, method:'Airtel Money', ref:'AIRTEL-5521', activity:[] },
+      { id:'I5', quoteId:'Q5', customerId:'C4', items:[{service:'council', govt:600, fee:500}],
+        status:'ISSUED', issued: now-1*D, paidAt:null, method:null, ref:null, activity:[] },
+      { id:'I6', quoteId:null, customerId:'C1', items:[{service:'book', govt:0, fee:1500}],
+        status:'PAID', issued: now-2*D, paidAt: now-2*D, method:'MTN MoMo', ref:'MOMO-9012', activity:[{ts:now-2*D, text:'Repeat purchase — bookkeeping'}] }
+    ],
+    jobs: [
+      { id:'SE-JOB-2024-0001', customerId:'C1', quoteId:'Q2', invoiceId:'I2',
+        status:'COMPLETED', created: now-9*D, completedAt: now-3*D,
+        assignedOfficer:'Ops Officer A', targetDate: now-2*D,
+        tasks:[
+          {id:'T1', service:'pacra', name:'Name search', done:true, doneAt: now-8*D},
+          {id:'T2', service:'pacra', name:'Prepare Memorandum & Articles', done:true, doneAt: now-8*D},
+          {id:'T3', service:'pacra', name:'Submit registration', done:true, doneAt: now-7*D},
+          {id:'T4', service:'pacra', name:'Collect certificate', done:true, doneAt: now-5*D},
+          {id:'T5', service:'pacra', name:'QC review', done:true, doneAt: now-5*D},
+          {id:'T6', service:'zra', name:'Prepare application', done:true, doneAt: now-4*D},
+          {id:'T7', service:'zra', name:'Submit to ZRA', done:true, doneAt: now-4*D},
+          {id:'T8', service:'zra', name:'Collect TPIN certificate', done:true, doneAt: now-3*D}
+        ],
+        activity:[{ts:now-9*D, text:'Job created from invoice I2'},{ts:now-3*D, text:'Job completed'}] },
+      { id:'SE-JOB-2024-0002', customerId:'C2', quoteId:'Q3', invoiceId:'I3',
+        status:'IN_PROGRESS', created: now-3*D, completedAt:null,
+        assignedOfficer:'Ops Officer A', targetDate: now+4*D,
+        tasks:[
+          {id:'T1', service:'pacra', name:'Name search', done:true, doneAt: now-2*D},
+          {id:'T2', service:'pacra', name:'Prepare Memorandum & Articles', done:true, doneAt: now-2*D},
+          {id:'T3', service:'pacra', name:'Submit registration', done:true, doneAt: now-1*D},
+          {id:'T4', service:'pacra', name:'Collect certificate', done:false, doneAt:null},
+          {id:'T5', service:'pacra', name:'QC review', done:false, doneAt:null},
+          {id:'T6', service:'zra', name:'Prepare application', done:false, doneAt:null},
+          {id:'T7', service:'zra', name:'Submit to ZRA', done:false, doneAt:null},
+          {id:'T8', service:'zra', name:'Collect TPIN certificate', done:false, doneAt:null}
+        ],
+        activity:[{ts:now-3*D, text:'Job created'},{ts:now-1*D, text:'PACRA application submitted'}] },
+      { id:'SE-JOB-2024-0003', customerId:'C3', quoteId:'Q4', invoiceId:'I4',
+        status:'CREATED', created: now-1*D, completedAt:null,
+        assignedOfficer:'Ops Officer B', targetDate: now+6*D,
+        tasks:[
+          {id:'T1', service:'pacra', name:'Name search', done:false, doneAt:null},
+          {id:'T2', service:'pacra', name:'Prepare Memorandum & Articles', done:false, doneAt:null},
+          {id:'T3', service:'pacra', name:'Submit registration', done:false, doneAt:null},
+          {id:'T4', service:'pacra', name:'Collect certificate', done:false, doneAt:null},
+          {id:'T5', service:'pacra', name:'QC review', done:false, doneAt:null}
+        ],
+        activity:[{ts:now-1*D, text:'Job created from invoice I4'}] },
+      { id:'SE-JOB-2024-0004', customerId:'C1', quoteId:null, invoiceId:'I6',
+        status:'IN_PROGRESS', created: now-2*D, completedAt:null,
+        assignedOfficer:'Ops Officer B', targetDate: now+28*D,
+        tasks:[
+          {id:'T1', service:'book', name:'Collect receipts', done:true, doneAt: now-1*D},
+          {id:'T2', service:'book', name:'Reconcile accounts', done:false, doneAt:null},
+          {id:'T3', service:'book', name:'Prepare monthly reports', done:false, doneAt:null},
+          {id:'T4', service:'book', name:'Client review', done:false, doneAt:null}
+        ],
+        activity:[{ts:now-2*D, text:'Repeat job created for existing customer'}] }
+    ]
+  };
+}
+
+function load(){
+  try{
+    const raw = localStorage.getItem(KEY);
+    DB = raw ? JSON.parse(raw) : seed();
+  }catch(e){ DB = seed(); }
+}
+function save(){ localStorage.setItem(KEY, JSON.stringify(DB)); }
+function resetDemo(){ localStorage.removeItem(KEY); load(); render(); toast('Demo data reset'); }
+
+// ============ HELPERS ============
+const $ = s => document.querySelector(s);
+const money = n => 'ZMW ' + Number(n||0).toLocaleString('en-US');
+const fmtDate = d => new Date(d).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});
+const esc = s => String(s??'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+function quoteTotals(q){
+  const govt = q.items.reduce((s,i)=>s+(i.govt||0),0);
+  const fees = q.items.reduce((s,i)=>s+(i.fee||0),0);
+  const subtotal = govt + fees;
+  const vat = Math.round(subtotal * 0.16);
+  return { govt, fees, subtotal, vat, total: subtotal + vat };
+}
+
+function badge(status){
+  const tone = {
+    NEW:'info', CONTACTED:'info', QUALIFIED:'warning', QUOTED:'warning', WON:'success', LOST:'danger',
+    SENT:'info', ACCEPTED:'success', DECLINED:'danger',
+    ISSUED:'warning', PAID:'success',
+    CREATED:'info', IN_PROGRESS:'warning', QC:'warning', COMPLETED:'success'
+  }[status] || 'muted';
+  return `<span class="badge badge-${tone}">${esc(String(status).replace(/_/g,' '))}</span>`;
+}
+
+function toast(msg){
+  const el = document.createElement('div');
+  el.className = 'toast';
+  el.textContent = msg;
+  document.body.appendChild(el);
+  requestAnimationFrame(()=>el.classList.add('show'));
+  setTimeout(()=>{ el.classList.remove('show'); setTimeout(()=>el.remove(), 300); }, 2600);
+}
+
+function nextJobId(){
+  const year = new Date().getFullYear();
+  const used = DB.jobs.filter(j => String(j.id).startsWith('SE-JOB-'+year+'-')).length;
+  return 'SE-JOB-' + year + '-' + String(used + 1).padStart(4,'0');
+}
+
+// ============ KPI CALCULATION ============
+function computeKPI(){
+  const now = Date.now();
+  const monthAgo = now - 30*86400000;
+
+  const leadsThisMonth = DB.leads.filter(l => l.created >= monthAgo).length;
+  const adSpend = 4500;
+  const cpl = leadsThisMonth ? Math.round(adSpend / leadsThisMonth) : 0;
+
+  const won = DB.leads.filter(l => l.status === 'WON').length;
+  const convRate = DB.leads.length ? (won / DB.leads.length * 100).toFixed(1) : '0';
+
+  const revenue = DB.invoices
+    .filter(i => i.status === 'PAID')
+    .reduce((s, i) => s + quoteTotals(i).total, 0);
+
+  const closeTimes = DB.leads
+    .filter(l => l.status === 'WON')
+    .map(l => {
+      const q = DB.quotes.find(q => q.leadId === l.id && q.acceptedAt);
+      return q ? (q.acceptedAt - l.created) / 86400000 : null;
+    })
+    .filter(x => x != null);
+  const avgClose = closeTimes.length
+    ? (closeTimes.reduce((a,b)=>a+b,0) / closeTimes.length).toFixed(1)
+    : '—';
+
+  const totalInv = DB.invoices.length;
+  const paidInv = DB.invoices.filter(i => i.status === 'PAID').length;
+  const collectionRate = totalInv ? Math.round(paidInv / totalInv * 100) : 0;
+
+  const completedJobs = DB.jobs.filter(j => j.status === 'COMPLETED').length;
+  const completedWithDates = DB.jobs.filter(j => j.status === 'COMPLETED' && j.completedAt);
+  const avgDelivery = completedWithDates.length
+    ? (completedWithDates.reduce((s,j)=>s+(j.completedAt - j.created),0) / completedWithDates.length / 86400000).toFixed(1)
+    : '—';
+
+  const qualityRate = 95;
+  const satisfaction = 4.7;
+
+  const repeatCustomers = DB.customers.filter(c =>
+    DB.jobs.filter(j => j.customerId === c.id).length > 1
+  ).length;
+  const repeatRate = DB.customers.length
+    ? Math.round(repeatCustomers / DB.customers.length * 100)
+    : 0;
+
+  return { leadsThisMonth, cpl, convRate, revenue, avgClose, collectionRate,
+           completedJobs, avgDelivery, qualityRate, satisfaction, repeatRate,
+           totalLeads: DB.leads.length, wonLeads: won };
+}
+
+// ============ BUSINESS LOGIC ============
+function createLead(data){
+  const id = 'L' + (DB.leads.length + 1) + '_' + Math.floor(Math.random()*1000);
+  const lead = {
+    id, name:data.name, phone:data.phone, email:data.email,
+    service:data.service, needs:data.needs, source:data.source || 'Website',
+    status:'NEW', score:5, assigned:'sales@starteasy.zm',
+    created: Date.now(), customerId:null,
+    activity:[{ts:Date.now(), text:'Enquiry received via ' + (data.source||'Website')}]
+  };
+  DB.leads.unshift(lead);
+  save(); render();
+  return lead;
+}
+
+function advanceLead(id){
+  const lead = DB.leads.find(l=>l.id===id);
+  if(!lead) return;
+  const nextMap = { NEW:'CONTACTED', CONTACTED:'QUALIFIED' };
+  const next = nextMap[lead.status];
+  if(!next){ toast('Lead is already at '+lead.status); return; }
+  lead.status = next;
+  lead.activity.push({ts:Date.now(), text:'Status advanced to '+next});
+  save(); render();
+  toast(`${lead.name} → ${next}`);
+}
+
+function createQuote(leadId, serviceIds){
+  const lead = DB.leads.find(l=>l.id===leadId);
+  if(!lead) return;
+  const items = serviceIds.map(sid => {
+    const s = serviceById(sid);
+    return { service:sid, govt:s.govt, fee:s.fee };
+  });
+  const quote = {
+    id: 'Q' + (DB.quotes.length + 1) + '_' + Math.floor(Math.random()*1000),
+    leadId, customerId: lead.customerId || null, items,
+    status:'SENT', created: Date.now(), validUntil: Date.now()+30*86400000, acceptedAt:null,
+    activity:[{ts:Date.now(), text:'Quotation sent to customer'}]
+  };
+  DB.quotes.unshift(quote);
+  lead.status = 'QUOTED';
+  lead.activity.push({ts:Date.now(), text:'Quotation '+quote.id+' sent'});
+  save(); render();
+  toast('Quote '+quote.id+' created');
+}
+
+function acceptQuote(quoteId){
+  const quote = DB.quotes.find(q=>q.id===quoteId);
+  if(!quote || quote.status !== 'SENT') return;
+  quote.status = 'ACCEPTED';
+  quote.acceptedAt = Date.now();
+  quote.activity.push({ts:Date.now(), text:'Customer accepted quotation'});
+
+  let lead = DB.leads.find(l=>l.id===quote.leadId);
+  if(lead && !lead.customerId){
+    const cust = {
+      id:'C' + (DB.customers.length + 1) + '_' + Math.floor(Math.random()*1000),
+      name: lead.name, phone: lead.phone, email: lead.email,
+      business: null, leadId: lead.id, created: Date.now()
+    };
+    DB.customers.push(cust);
+    lead.customerId = cust.id;
+    quote.customerId = cust.id;
+    lead.status = 'WON';
+    lead.activity.push({ts:Date.now(), text:'Customer record created'});
+  }
+
+  const invoice = {
+    id:'I' + (DB.invoices.length + 1) + '_' + Math.floor(Math.random()*1000),
+    quoteId: quote.id, customerId: quote.customerId,
+    items: quote.items.map(i=>({...i})),
+    status:'ISSUED', issued: Date.now(), paidAt:null, method:null, ref:null,
+    activity:[{ts:Date.now(), text:'Invoice issued from quote '+quote.id}]
+  };
+  DB.invoices.unshift(invoice);
+  save(); render();
+  toast('Quote accepted · invoice '+invoice.id+' issued');
+}
+
+function confirmPayment(invoiceId, method){
+  const inv = DB.invoices.find(i=>i.id===invoiceId);
+  if(!inv || inv.status==='PAID') return;
+  inv.status = 'PAID';
+  inv.paidAt = Date.now();
+  inv.method = method || 'Bank Transfer';
+  inv.ref = 'REF-' + Math.floor(Math.random()*10000);
+  inv.activity.push({ts:Date.now(), text:'Payment confirmed — '+inv.method});
+
+  const tasks = [];
+  let t = 1;
+  inv.items.forEach(it => {
+    const svc = serviceById(it.service);
+    if(!svc) return;
+    svc.tasks.forEach(name => {
+      tasks.push({ id:'T'+(t++)+'_'+Math.floor(Math.random()*1000), service:it.service, name, done:false, doneAt:null });
+    });
+  });
+  const job = {
+    id: nextJobId(),
+    customerId: inv.customerId, quoteId: inv.quoteId, invoiceId: inv.id,
+    status:'CREATED', created: Date.now(), completedAt: null,
+    assignedOfficer: 'Ops Officer A',
+    targetDate: Date.now() + 14*86400000,
+    tasks,
+    activity:[{ts:Date.now(), text:'Job created from invoice '+inv.id}]
+  };
+  DB.jobs.unshift(job);
+  save(); render();
+  toast('Payment confirmed · job '+job.id+' created');
+}
+
+function toggleTask(jobId, taskId){
+  const job = DB.jobs.find(j=>j.id===jobId);
+  if(!job) return;
+  const t = job.tasks.find(x=>x.id===taskId);
+  if(!t) return;
+  t.done = !t.done;
+  t.doneAt = t.done ? Date.now() : null;
+  if(job.status==='CREATED' && job.tasks.some(x=>x.done)) job.status='IN_PROGRESS';
+  save(); render();
+}
+
+function advanceJob(jobId){
+  const job = DB.jobs.find(j=>j.id===jobId);
+  if(!job) return;
+  const allDone = job.tasks.every(t=>t.done);
+  if(job.status==='CREATED' || job.status==='IN_PROGRESS'){
+    if(!allDone){ toast('Complete all tasks first'); return; }
+    job.status = 'QC';
+    job.activity.push({ts:Date.now(), text:'All tasks complete · moved to QC'});
+    toast('Job moved to QC');
+  } else if(job.status==='QC'){
+    job.status = 'COMPLETED';
+    job.completedAt = Date.now();
+    job.activity.push({ts:Date.now(), text:'QC passed · job completed'});
+    toast('Job completed');
+  }
+  save(); render();
+}
+
+// ============ RENDER: ROOT ============
+function render(){
+  const app = $('#app');
+  if(state.role === 'public'){
+    app.innerHTML = renderTopbar() + renderPublicSite();
+  } else {
+    app.innerHTML = renderTopbar() + renderWorkspace();
+  }
+  if(state.modal) app.insertAdjacentHTML('beforeend', renderModal());
+}
+
+function renderTopbar(){
+  const roles = Object.entries(ROLE_CONFIG).map(([k,v]) =>
+    `<option value="${k}" ${state.role===k?'selected':''}>${v.label}</option>`).join('');
+  return `
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark">SE</div>
+        StartEasy <small>ZAMBIA · PLATFORM</small>
+      </div>
+      <div class="topbar-actions">
+        <button class="tb-btn" data-action="reset-demo" title="Reset demo data">Reset demo</button>
+        <select class="role-select" data-action="switch-role">${roles}</select>
+      </div>
+    </header>
+  `;
+}
+
+// ============ PUBLIC SITE ============
+function renderPublicSite(){
+  return `
+  <div class="public-wrap">
+    <nav class="pub-nav">
+      <div class="brand" style="color:var(--text)"><div class="brand-mark">SE</div> StartEasy</div>
+      <div class="links">
+        <a href="#services">Services</a>
+        <a href="#enquire">Get a quote</a>
+      </div>
+      <a href="#enquire" class="btn btn-primary">Start my application</a>
+    </nav>
+
+    <section class="hero">
+      <div class="eyebrow">Zambia · Business Registration & Compliance</div>
+      <h1>Get your business <span>registered, licensed</span> and <span>compliant</span> — without the paperwork headache.</h1>
+      <p>End-to-end handling of PACRA, ZRA, ZEMA and council licensing. One team, one quote, one platform.</p>
+      <div class="hero-cta">
+        <a href="#enquire" class="btn btn-primary">Request a quotation</a>
+        <a href="#services" class="btn">See our services</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><div class="n">1,200+</div><div class="l">Applications processed</div></div>
+        <div class="stat"><div class="n">7 days</div><div class="l">Average PACRA turnaround</div></div>
+        <div class="stat"><div class="n">98%</div><div class="l">On-time completion</div></div>
+      </div>
+    </section>
+
+    <section class="section" id="services">
+      <div class="section-head">
+        <h2>Services we handle for you</h2>
+        <p>Every service is quoted transparently — government fees and our professional fees shown separately.</p>
+      </div>
+      <div class="svc-grid">
+        ${SERVICES.map(s => `
+          <div class="svc-card">
+            <div class="icon">${iconFor(s.id)}</div>
+            <h3>${esc(s.name)}</h3>
+            <p>${esc(s.desc)}</p>
+            <div class="price">From ${money(s.fee)} · ${s.days} business days</div>
+          </div>
+        `).join('')}
+      </div>
+    </section>
+
+    <section class="enquiry-wrap" id="enquire">
+      <div class="enquiry-card">
+        <h2>Request a quotation</h2>
+        <p class="lede">Tell us what you need and we'll get back to you within 2 hours during business hours.</p>
+        <form data-form="enquiry">
+          <div class="grid grid-2">
+            <div class="field"><label>Full name</label><input name="name" required placeholder="e.g. Grace Phiri"></div>
+            <div class="field"><label>Phone</label><input name="phone" required placeholder="+260 ..."></div>
+          </div>
+          <div class="grid grid-2">
+            <div class="field"><label>Email</label><input type="email" name="email" required placeholder="you@example.zm"></div>
+            <div class="field">
+              <label>Service needed</label>
+              <select name="service" required>
+                ${SERVICES.map(s=>`<option value="${s.id}">${esc(s.name)}</option>`).join('')}
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label>Tell us about your business & needs</label>
+            <textarea name="needs" required placeholder="e.g. I'm starting a logistics company in Lusaka and need PACRA, ZRA and council licensing."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;padding:11px">Send enquiry</button>
+        </form>
+      </div>
+    </section>
+
+    <footer class="pub-footer">
+      <strong>StartEasy Zambia</strong> · Lusaka · hello@starteasy.zm · +260 211 000 000
+      <div style="margin-top:6px">This is a product demonstration — no real applications are submitted.</div>
+    </footer>
+  </div>
+  `;
+}
+
+function iconFor(id){
+  return { pacra:'📋', zra:'🏛️', council:'🏢', zema:'🌿', book:'📊', plan:'📈' }[id] || '•';
+}
+
+// ============ WORKSPACE ============
+function renderWorkspace(){
+  const cfg = ROLE_CONFIG[state.role];
+  return `
+  <div class="layout">
+    <aside class="sidebar">
+      <h4>${esc(cfg.label)}</h4>
+      ${cfg.views.map(v => `
+        <button class="nav-item ${state.view===v?'active':''}" data-action="goto" data-view="${v}">
+          <span class="dot"></span> ${VIEW_LABELS[v] || v}
+        </button>
+      `).join('')}
+    </aside>
+    <main class="main">${renderMainView()}</main>
+  </div>
+  `;
+}
+
+function renderMainView(){
+  switch(state.view){
+    case 'dashboard': return renderDashboard();
+    case 'kpis':      return renderKPIs();
+    case 'handovers': return renderHandovers();
+    case 'systems':   return renderSystems();
+    case 'crm':       return renderCRM();
+    case 'pipeline':  return renderPipeline();
+    case 'quotes':    return renderQuotes();
+    case 'invoices':  return renderInvoices();
+    case 'jobs':      return renderJobs();
+    case 'portal':    return renderPortal();
+    case 'settings':  return renderSettings();
+    default:          return '<p>View not found.</p>';
+  }
+}
+
+// ============ DASHBOARD ============
+function renderDashboard(){
+  const k = computeKPI();
+  return `
+    <div class="page-head">
+      <div><h1>Dashboard</h1><p>Live overview of leads, revenue and service delivery.</p></div>
+    </div>
+    <div class="grid grid-4">
+      <div class="kpi"><div class="label">Total leads</div><div class="value">${DB.leads.length}</div><div class="sub">${DB.leads.filter(l=>l.status==='NEW').length} new</div></div>
+      <div class="kpi"><div class="label">Conversion</div><div class="value">${k.convRate}%</div><div class="sub">${k.wonLeads} won / ${k.totalLeads} leads</div></div>
+      <div class="kpi"><div class="label">Revenue (paid)</div><div class="value" style="font-size:22px">${money(k.revenue)}</div><div class="sub">${DB.invoices.filter(i=>i.status==='PAID').length} paid invoices</div></div>
+      <div class="kpi"><div class="label">Active jobs</div><div class="value">${DB.jobs.filter(j=>j.status!=='COMPLETED').length}</div><div class="sub">${k.completedJobs} completed</div></div>
+    </div>
+
+    <div class="grid grid-2" style="margin-top:20px">
+      <div class="card">
+        <h3>Leads by stage</h3>
+        ${LEAD_FLOW.map(st => {
+          const n = DB.leads.filter(l=>l.status===st).length;
+          const pct = DB.leads.length ? (n/DB.leads.length*100) : 0;
+          return `<div style="margin-bottom:10px">
+            <div style="display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:3px">
+              <span>${st}</span><span class="muted">${n}</span>
+            </div>
+            <div class="progress"><div class="progress-bar" style="width:${pct}%;background:${st==='WON'?'var(--success)':st==='QUOTED'?'var(--warning)':'var(--primary)'}"></div></div>
+          </div>`;
+        }).join('')}
+      </div>
+
+      <div class="card">
+        <h3>Recent activity</h3>
+        ${DB.leads.slice(0,5).map(l => `
+          <div style="padding:9px 0;border-bottom:1px solid var(--border);font-size:13px">
+            <div><strong>${esc(l.name)}</strong> · ${badge(l.status)}</div>
+            <div class="muted" style="margin-top:2px">${esc(l.activity[l.activity.length-1]?.text || '')}</div>
+          </div>
+        `).join('') || '<div class="empty">No activity yet.</div>'}
+      </div>
+    </div>
+  `;
+}
+
+// ============ KPIs VIEW ============
+function renderKPIs(){
+  const k = computeKPI();
+  const departments = [
+    { name:'Marketing', kpis:[
+      { label:'Leads generated (30d)', value: k.leadsThisMonth, sub:'Last 30 days' },
+      { label:'Cost per lead', value: 'ZMW ' + k.cpl, sub:'assumes ZMW 4,500 monthly ad spend' }
+    ]},
+    { name:'Sales', kpis:[
+      { label:'Lead-to-customer conversion', value: k.convRate + '%', sub: k.wonLeads + ' of ' + k.totalLeads + ' leads' },
+      { label:'Revenue generated', value: money(k.revenue), sub:'paid invoices' },
+      { label:'Average time to close', value: k.avgClose + ' days', sub:'lead → accepted quote' }
+    ]},
+    { name:'Finance', kpis:[
+      { label:'Payment collection rate', value: k.collectionRate + '%', sub: DB.invoices.filter(i=>i.status==='PAID').length + ' of ' + DB.invoices.length + ' invoices paid' }
+    ]},
+    { name:'Operations', kpis:[
+      { label:'Jobs completed', value: k.completedJobs, sub:'across all customers' },
+      { label:'Average delivery time', value: k.avgDelivery + ' days', sub:'completed jobs only' },
+      { label:'First-time quality rate', value: k.qualityRate + '%', sub:'QC pass without rework' }
+    ]},
+    { name:'Customer Support', kpis:[
+      { label:'Customer satisfaction', value: k.satisfaction + ' / 5', sub:'post-completion survey' },
+      { label:'Repeat purchase rate', value: k.repeatRate + '%', sub:'customers with 2+ jobs' }
+    ]}
+  ];
+
+  return `
+    <div class="page-head">
+      <div><h1>Performance KPIs</h1><p>Measure every stage of the pipeline. Without measurement, the process cannot be managed effectively.</p></div>
+    </div>
+
+    <div class="callout">
+      <div class="ico">📐</div>
+      <div>
+        <strong>Conversion rate formula</strong>
+        <div class="formula-box">Conversion Rate = (Customers won ÷ Leads generated) × 100</div>
+        <p style="margin-top:8px">If marketing generates 100 leads and sales converts 15 into paying customers, the conversion rate is <strong>15%</strong>. Management can then assess whether the problem is insufficient marketing, poor lead quality, ineffective sales, or pricing.</p>
+      </div>
+    </div>
+
+    <div class="grid grid-2">
+      ${departments.map(d => `
+        <div class="dept-card">
+          <h4>${d.name}</h4>
+          ${d.kpis.map(kk => `
+            <div class="dept-kpi">
+              <div>
+                <div class="kl">${kk.label}</div>
+                ${kk.sub ? `<div class="muted" style="font-size:11px">${kk.sub}</div>` : ''}
+              </div>
+              <div class="kv">${kk.value}</div>
+            </div>
+          `).join('')}
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+// ============ HANDOVERS VIEW ============
+function renderHandovers(){
+  return `
+    <div class="page-head">
+      <div><h1>Process handovers</h1><p>Who is accountable at each step, and who receives the work next.</p></div>
+    </div>
+
+    <div class="callout">
+      <div class="ico">🤝</div>
+      <div>
+        <strong>Relationship continuity rule</strong>
+        <p>Sales remains responsible for the customer relationship even after Operations takes over delivery. This prevents customers from feeling abandoned.</p>
+      </div>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Process</th><th>Accountable department</th><th>Handover to</th></tr>
+        </thead>
+        <tbody>
+          ${HANDOVERS.map(h => `
+            <tr>
+              <td><strong>${esc(h.process)}</strong></td>
+              <td><span class="badge badge-info">${esc(h.accountable)}</span></td>
+              <td class="muted">${esc(h.handover)}</td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card" style="margin-top:20px">
+      <h3 style="color:var(--text);font-size:14px;margin-bottom:4px">Illustrative customer job record</h3>
+      <p class="muted" style="margin-bottom:14px">What every job looks like on the platform — one record, all departments, one source of truth.</p>
+
+      <div class="job-card" style="margin:0;box-shadow:none">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:8px">
+          <div>
+            <div class="muted" style="font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;font-weight:600">Service Job</div>
+            <div style="font-size:16px;font-weight:700;margin-top:2px">In progress</div>
+          </div>
+          <span class="job-id">SE-JOB-2024-XXXX</span>
+        </div>
+
+        <div class="job-meta">
+          <div><div class="lbl">Customer</div><div>ABC Enterprises</div></div>
+          <div><div class="lbl">Assigned officer</div><div>Operations Officer</div></div>
+          <div><div class="lbl">Payment</div><div><span class="badge badge-success">Confirmed</span></div></div>
+          <div><div class="lbl">Target completion</div><div>Subject to regulatory processing</div></div>
+        </div>
+
+        <div style="margin-top:12px;font-size:12.5px"><span class="muted">Service:</span> <strong>Limited Company Registration & Licensing</strong></div>
+
+        <div style="margin-top:14px">
+          <div class="muted" style="font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;font-weight:600;margin-bottom:6px">Task tracking</div>
+          <div class="task-row"><div style="flex:1">1. Customer documents</div><span class="badge badge-success">Complete</span></div>
+          <div class="task-row"><div style="flex:1">2. PACRA application</div><span class="badge badge-warning">In progress</span></div>
+          <div class="task-row"><div style="flex:1">3. ZRA onboarding</div><span class="badge badge-muted">Pending</span></div>
+          <div class="task-row"><div style="flex:1">4. ZEMA assessment</div><span class="badge badge-muted">Pending</span></div>
+          <div class="task-row"><div style="flex:1">5. Council licensing</div><span class="badge badge-muted">Pending</span></div>
+        </div>
+
+        <div style="margin-top:14px;padding:10px 12px;background:#F0FDFA;border-radius:8px;font-size:12.5px;color:#134E4A">
+          <strong>Management visibility:</strong> every assignment shows who is responsible and what remains outstanding.
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// ============ SYSTEMS VIEW ============
+function renderSystems(){
+  return `
+    <div class="page-head">
+      <div><h1>Systems & tools</h1><p>How StartEasy's platform integrates the different tool categories.</p></div>
+    </div>
+
+    <div class="callout">
+      <div class="ico">💡</div>
+      <div>
+        <strong>Build, don't buy (yet)</strong>
+        <p>Avoid purchasing many separate software systems immediately. Since the platform already uses GitHub and Firebase, develop an integrated customer and service management system gradually — so every department works from the same data.</p>
+      </div>
+    </div>
+
+    <div class="callout" style="background:#EFF6FF;border-color:#BFDBFE">
+      <div class="ico">🔗</div>
+      <div>
+        <strong style="color:#1E40AF">The connected-customer principle</strong>
+        <p style="color:#1E3A8A">The customer should never have to explain their request repeatedly. When Marketing, Sales and Operations all read from the same records, the customer shares their story once — and every department picks up where the last left off.</p>
+      </div>
+    </div>
+
+    <div class="grid grid-2">
+      ${SYSTEMS.map(s => `
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px">
+            <div>
+              <h3 style="color:var(--text);font-size:15px;margin-bottom:4px">${esc(s.name)}</h3>
+              <p class="muted" style="font-size:12.5px;margin-bottom:0">${esc(s.purpose)}</p>
+            </div>
+            <span class="badge badge-success" style="flex-shrink:0">Integrated</span>
+          </div>
+          <div style="margin-top:12px;padding:10px 12px;background:#F8FAFC;border-radius:8px;font-size:12.5px">
+            <div class="muted" style="font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;font-weight:600;margin-bottom:4px">In this platform</div>
+            <div>${esc(s.inPlatform)}</div>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+// ============ CRM (Leads) ============
+function renderCRM(){
+  return `
+    <div class="page-head">
+      <div><h1>Leads</h1><p>Every enquiry captured, scored and assigned.</p></div>
+      <button class="btn btn-primary" data-action="open-modal" data-modal="manual-lead">+ New lead</button>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Name</th><th>Service</th><th>Source</th><th>Status</th><th>Score</th><th>Created</th><th style="text-align:right">Actions</th></tr></thead>
+        <tbody>
+          ${DB.leads.map(l => `
+            <tr>
+              <td><strong>${esc(l.name)}</strong><div class="muted">${esc(l.phone)}</div></td>
+              <td>${esc(serviceById(l.service)?.name || l.service)}</td>
+              <td class="muted">${esc(l.source)}</td>
+              <td>${badge(l.status)}</td>
+              <td><strong>${l.score}</strong><span class="muted">/10</span></td>
+              <td class="muted">${fmtDate(l.created)}</td>
+              <td style="text-align:right">${renderLeadActions(l)}</td>
+            </tr>
+          `).join('') || '<tr><td colspan="7" class="empty">No leads yet.</td></tr>'}
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+
+function renderLeadActions(l){
+  if(l.status === 'NEW')
+    return `<button class="btn btn-sm" data-action="advance-lead" data-id="${l.id}">Mark contacted</button>`;
+  if(l.status === 'CONTACTED')
+    return `<button class="btn btn-sm" data-action="advance-lead" data-id="${l.id}">Qualify</button>`;
+  if(l.status === 'QUALIFIED')
+    return `<button class="btn btn-sm btn-primary" data-action="open-modal" data-modal="quote-builder" data-id="${l.id}">Create quote</button>`;
+  if(l.status === 'QUOTED')
+    return `<span class="muted">Awaiting customer</span>`;
+  if(l.status === 'WON')
+    return `<span class="badge badge-success">Won</span>`;
+  return `<span class="muted">—</span>`;
+}
+
+// ============ PIPELINE ============
+function renderPipeline(){
+  return `
+    <div class="page-head">
+      <div><h1>Pipeline</h1><p>Every lead visible at a glance.</p></div>
+    </div>
+    <div class="kanban">
+      ${LEAD_FLOW.map(stage => {
+        const items = DB.leads.filter(l=>l.status===stage);
+        return `
+          <div class="kcol">
+            <h5>${stage} <span class="count">${items.length}</span></h5>
+            ${items.map(l => `
+              <div class="kcard">
+                <strong>${esc(l.name)}</strong>
+                <div class="svc">${esc(serviceById(l.service)?.name || l.service)}</div>
+                <div class="muted" style="margin-top:6px">Score ${l.score} · ${esc(l.source)}</div>
+              </div>
+            `).join('') || '<div class="muted" style="font-size:12px;padding:6px">No leads here.</div>'}
+          </div>
+        `;
+      }).join('')}
+    </div>
+  `;
+}
+
+// ============ QUOTES ============
+function renderQuotes(){
+  return `
+    <div class="page-head">
+      <div><h1>Quotations</h1><p>Transparent pricing — government fees and service fees shown separately.</p></div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Quote</th><th>Customer</th><th>Items</th><th>Total (incl. VAT)</th><th>Status</th><th>Created</th><th style="text-align:right">Actions</th></tr></thead>
+        <tbody>
+          ${DB.quotes.map(q => {
+            const lead = DB.leads.find(l=>l.id===q.leadId);
+            const cust = DB.customers.find(c=>c.id===q.customerId);
+            const t = quoteTotals(q);
+            return `
+              <tr>
+                <td class="mono">${q.id}</td>
+                <td>${esc(cust?.name || lead?.name || '—')}</td>
+                <td class="muted">${q.items.map(i=>serviceById(i.service)?.name || i.service).join(', ')}</td>
+                <td><strong>${money(t.total)}</strong></td>
+                <td>${badge(q.status)}</td>
+                <td class="muted">${fmtDate(q.created)}</td>
+                <td style="text-align:right">
+                  ${q.status === 'SENT'
+                    ? `<button class="btn btn-sm btn-primary" data-action="accept-quote" data-id="${q.id}">Simulate acceptance</button>`
+                    : q.status === 'ACCEPTED'
+                      ? `<span class="muted">Accepted ${q.acceptedAt?fmtDate(q.acceptedAt):''}</span>`
+                      : '—'}
+                </td>
+              </tr>
+            `;
+          }).join('') || '<tr><td colspan="7" class="empty">No quotes yet.</td></tr>'}
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+
+// ============ INVOICES ============
+function renderInvoices(){
+  return `
+    <div class="page-head">
+      <div><h1>Invoices</h1><p>Payments must be confirmed before any job enters delivery.</p></div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Invoice</th><th>Customer</th><th>Amount</th><th>Status</th><th>Issued</th><th>Paid</th><th style="text-align:right">Actions</th></tr></thead>
+        <tbody>
+          ${DB.invoices.map(inv => {
+            const cust = DB.customers.find(c=>c.id===inv.customerId);
+            const t = quoteTotals(inv);
+            return `
+              <tr>
+                <td class="mono">${inv.id}</td>
+                <td>${esc(cust?.name || '—')}</td>
+                <td><strong>${money(t.total)}</strong></td>
+                <td>${badge(inv.status)}</td>
+                <td class="muted">${fmtDate(inv.issued)}</td>
+                <td class="muted">${inv.paidAt ? fmtDate(inv.paidAt) : '—'}</td>
+                <td style="text-align:right">
+                  ${inv.status === 'ISSUED'
+                    ? `<button class="btn btn-sm btn-success" data-action="confirm-payment" data-id="${inv.id}">Confirm payment</button>`
+                    : `<span class="muted">${esc(inv.method || '')}</span>`}
+                </td>
+              </tr>
+            `;
+          }).join('') || '<tr><td colspan="7" class="empty">No invoices yet.</td></tr>'}
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+
+// ============ JOBS (enhanced) ============
+function renderJobs(){
+  return `
+    <div class="page-head">
+      <div><h1>Service delivery</h1><p>Every job carries a unique Service Job ID — visible to all departments and the customer.</p></div>
+    </div>
+    <div class="grid" style="gap:0">
+      ${DB.jobs.map(j => renderJobCard(j)).join('') || '<div class="card empty"><strong>No jobs yet</strong>Confirm payment on an invoice to create one.</div>'}
+    </div>
+  `;
+}
+
+function renderJobCard(j){
+  const cust = DB.customers.find(c=>c.id===j.customerId);
+  const inv = DB.invoices.find(i=>i.id===j.invoiceId);
+  const done = j.tasks.filter(t=>t.done).length;
+  const pct = j.tasks.length ? Math.round(done/j.tasks.length*100) : 0;
+  const allDone = j.tasks.every(t=>t.done);
+  const serviceNames = [...new Set(j.tasks.map(t => serviceById(t.service)?.name || t.service))].join(', ');
+  const paymentConfirmed = inv?.status === 'PAID';
+  const overdue = j.targetDate && j.status !== 'COMPLETED' && j.targetDate < Date.now();
+
+  const action = j.status === 'COMPLETED'
+    ? '<span class="badge badge-success">Delivered</span>'
+    : `<button class="btn btn-sm btn-primary" data-action="advance-job" data-id="${j.id}" ${!allDone && (j.status==='CREATED'||j.status==='IN_PROGRESS')?'disabled':''}>
+        ${j.status==='QC'?'Mark completed':'Send to QC'}
+       </button>`;
+
+  return `
+    <div class="job-card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px">
+        <div>
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+            <span class="job-id">${esc(j.id)}</span>
+            ${badge(j.status)}
+          </div>
+          <div style="font-size:16px;font-weight:600;margin-top:6px">${esc(cust?.name || '—')}</div>
+          <div class="muted" style="font-size:12px">${esc(cust?.business || '')}</div>
+        </div>
+        <div>${action}</div>
+      </div>
+
+      <div class="job-meta">
+        <div>
+          <div class="lbl">Service</div>
+          <div>${esc(serviceNames)}</div>
+        </div>
+        <div>
+          <div class="lbl">Assigned officer</div>
+          <div>${esc(j.assignedOfficer || '—')}</div>
+        </div>
+        <div>
+          <div class="lbl">Payment</div>
+          <div>${paymentConfirmed ? '<span class="badge badge-success">Confirmed</span>' : '<span class="badge badge-warning">Pending</span>'}</div>
+        </div>
+        <div>
+          <div class="lbl">Target completion</div>
+          <div>${j.targetDate ? fmtDate(j.targetDate) : '—'}${overdue ? ' <span class="badge badge-danger" style="font-size:9px">overdue</span>' : ''}</div>
+        </div>
+      </div>
+
+      <div style="margin-top:10px;font-size:11.5px;color:var(--muted);padding:8px 10px;background:#EFF6FF;border-radius:6px">
+        <strong style="color:#1E40AF">Relationship owner:</strong> Sales rep (sales@starteasy.zm) — remains responsible for the customer relationship after handover to Operations.
+      </div>
+
+      <div class="progress" style="margin-top:12px"><div class="progress-bar" style="width:${pct}%"></div></div>
+      <div class="muted" style="font-size:11.5px;margin-top:4px">${done} of ${j.tasks.length} tasks complete</div>
+
+      <div style="margin-top:12px">
+        ${j.tasks.map(t => `
+          <label class="task-row ${t.done?'done':''}">
+            <input type="checkbox" ${t.done?'checked':''} data-action="toggle-task" data-job="${j.id}" data-task="${t.id}">
+            <div style="flex:1">
+              <div class="task-name">${esc(t.name)}</div>
+              <div class="task-svc">${esc(serviceById(t.service)?.name || t.service)} ${t.doneAt?'· done '+fmtDate(t.doneAt):''}</div>
+            </div>
+          </label>
+        `).join('')}
+      </div>
+    </div>
+  `;
+}
+
+// ============ CUSTOMER PORTAL ============
+function renderPortal(){
+  const cust = DB.customers.find(c=>c.id===state.currentCustomerId) || DB.customers[0];
+  if(!cust) return '<div class="card empty"><strong>No customer record</strong>Convert a lead to a customer to see the portal.</div>';
+
+  const quotes = DB.quotes.filter(q=>q.customerId===cust.id);
+  const invoices = DB.invoices.filter(i=>i.customerId===cust.id);
+  const jobs = DB.jobs.filter(j=>j.customerId===cust.id);
+  const activeJob = jobs.find(j=>j.status !== 'COMPLETED') || jobs[0];
+
+  return `
+    <div class="portal-hero">
+      <h2>Welcome, ${esc(cust.name)}</h2>
+      <p>${esc(cust.business || 'Your StartEasy account')} · ${esc(cust.email)}</p>
+    </div>
+
+    ${activeJob ? renderPortalJob(activeJob) : ''}
+
+    <div class="grid grid-2" style="margin-top:16px">
+      <div class="card">
+        <h3>My quotations</h3>
+        ${quotes.length ? quotes.map(q => {
+          const t = quoteTotals(q);
+          return `
+            <div style="padding:10px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:8px">
+              <div>
+                <div><strong>${q.id}</strong> · ${badge(q.status)}</div>
+                <div class="muted" style="margin-top:2px">${q.items.map(i=>serviceById(i.service)?.name).join(', ')}</div>
+              </div>
+              <div style="text-align:right">
+                <div style="font-weight:700">${money(t.total)}</div>
+                ${q.status === 'SENT' ? `<button class="btn btn-sm btn-primary" data-action="accept-quote" data-id="${q.id}" style="margin-top:6px">Accept</button>` : ''}
+              </div>
+            </div>
+          `;
+        }).join('') : '<div class="muted" style="padding:8px 0">No quotes yet.</div>'}
+      </div>
+
+      <div class="card">
+        <h3>My invoices</h3>
+        ${invoices.length ? invoices.map(inv => {
+          const t = quoteTotals(inv);
+          return `
+            <div style="padding:10px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center">
+              <div>
+                <div><strong>${inv.id}</strong> · ${badge(inv.status)}</div>
+                <div class="muted" style="margin-top:2px">Issued ${fmtDate(inv.issued)}</div>
+              </div>
+              <div style="font-weight:700">${money(t.total)}</div>
+            </div>
+          `;
+        }).join('') : '<div class="muted" style="padding:8px 0">No invoices yet.</div>'}
+      </div>
+    </div>
+  `;
+}
+
+function renderPortalJob(job){
+  const done = job.tasks.filter(t=>t.done).length;
+  const pct = job.tasks.length ? Math.round(done/job.tasks.length*100) : 0;
+  return `
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:10px">
+        <div>
+          <div class="muted" style="font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;font-weight:600">Service Job</div>
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:2px">
+            <span class="job-id">${esc(job.id)}</span>
+            ${badge(job.status)}
+          </div>
+          <div class="muted" style="margin-top:6px">Progress ${done}/${job.tasks.length} · created ${fmtDate(job.created)}</div>
+        </div>
+        <div class="muted" style="font-size:11.5px;text-align:right">
+          <div>Assigned to: <strong>${esc(job.assignedOfficer || '—')}</strong></div>
+          <div>Target: ${job.targetDate ? fmtDate(job.targetDate) : '—'}</div>
+        </div>
+      </div>
+      <div class="progress"><div class="progress-bar" style="width:${pct}%"></div></div>
+      <div style="margin-top:14px">
+        ${job.tasks.map(t => `
+          <div class="task-row ${t.done?'done':''}">
+            <div style="width:16px;height:16px;border-radius:50%;border:2px solid ${t.done?'var(--success)':'var(--border-2)'};background:${t.done?'var(--success)':''};flex-shrink:0"></div>
+            <div style="flex:1">
+              <div class="task-name">${esc(t.name)}</div>
+              <div class="task-svc">${esc(serviceById(t.service)?.name)} ${t.doneAt?'· completed '+fmtDate(t.doneAt):''}</div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+}
+
+// ============ SETTINGS ============
+function renderSettings(){
+  return `
+    <div class="page-head"><div><h1>Settings</h1><p>Platform configuration and demo tools.</p></div></div>
+    <div class="card" style="margin-bottom:16px">
+      <h3>Demo data</h3>
+      <p class="muted" style="margin-bottom:12px">Reset the local database back to the seeded demonstration state.</p>
+      <button class="btn btn-danger" data-action="reset-demo">Reset demo data</button>
+    </div>
+    <div class="card">
+      <h3>Service catalog</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Service</th><th>Govt fee</th><th>Service fee</th><th>Days</th></tr></thead>
+          <tbody>
+            ${SERVICES.map(s => `
+              <tr>
+                <td><strong>${esc(s.name)}</strong></td>
+                <td>${money(s.govt)}</td>
+                <td>${money(s.fee)}</td>
+                <td>${s.days}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `;
+}
+
+// ============ MODALS ============
+function renderModal(){
+  const m = state.modal;
+  if(!m) return '';
+  if(m.type === 'quote-builder'){
+    const lead = DB.leads.find(l=>l.id===m.id);
+    if(!lead) return '';
+    return `
+      <div class="modal-backdrop" data-action="close-modal">
+        <div class="modal" onclick="event.stopPropagation()">
+          <h2>Create quotation</h2>
+          <p class="muted">For <strong>${esc(lead.name)}</strong> — ${esc(lead.needs)}</p>
+          <form data-form="create-quote" data-lead="${lead.id}">
+            <div class="service-picker">
+              ${SERVICES.map(s => `
+                <label class="svc-item">
+                  <input type="checkbox" name="svc" value="${s.id}" ${s.id===lead.service?'checked':''}>
+                  <div>
+                    <strong>${esc(s.name)}</strong>
+                    <div class="muted">Govt: ${money(s.govt)} · Fee: ${money(s.fee)} · ${s.days} days</div>
+                  </div>
+                </label>
+              `).join('')}
+            </div>
+            <div class="modal-actions">
+              <button type="button" class="btn" data-action="close-modal">Cancel</button>
+              <button type="submit" class="btn btn-primary">Create quote</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    `;
+  }
+  if(m.type === 'manual-lead'){
+    return `
+      <div class="modal-backdrop" data-action="close-modal">
+        <div class="modal" onclick="event.stopPropagation()">
+          <h2>New lead</h2>
+          <p class="muted" style="margin-bottom:16px">Manually capture a lead (walk-in, phone call, referral).</p>
+          <form data-form="enquiry">
+            <div class="grid grid-2">
+              <div class="field"><label>Full name</label><input name="name" required></div>
+              <div class="field"><label>Phone</label><input name="phone" required></div>
+            </div>
+            <div class="grid grid-2">
+              <div class="field"><label>Email</label><input type="email" name="email"></div>
+              <div class="field"><label>Service</label>
+                <select name="service">${SERVICES.map(s=>`<option value="${s.id}">${esc(s.name)}</option>`).join('')}</select>
+              </div>
+            </div>
+            <div class="grid grid-2">
+              <div class="field"><label>Source</label>
+                <select name="source"><option>Walk-in</option><option>Phone</option><option>Referral</option><option>Website</option><option>Facebook</option></select>
+              </div>
+              <div class="field"><label>Needs</label><input name="needs" required></div>
+            </div>
+            <div class="modal-actions">
+              <button type="button" class="btn" data-action="close-modal">Cancel</button>
+              <button type="submit" class="btn btn-primary">Create lead</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    `;
+  }
+  return '';
+}
+
+// ============ EVENTS ============
+document.addEventListener('click', e => {
+  const el = e.target.closest('[data-action]');
+  if(!el) return;
+  const action = el.dataset.action;
+
+  if(action === 'switch-role') return;
+  if(action === 'reset-demo'){ resetDemo(); return; }
+  if(action === 'goto'){ state.view = el.dataset.view; render(); return; }
+  if(action === 'open-modal'){ state.modal = { type: el.dataset.modal, id: el.dataset.id || null }; render(); return; }
+  if(action === 'close-modal'){ if(e.target.closest('.modal')) return; state.modal = null; render(); return; }
+  if(action === 'advance-lead'){ advanceLead(el.dataset.id); return; }
+  if(action === 'accept-quote'){ acceptQuote(el.dataset.id); return; }
+  if(action === 'confirm-payment'){ confirmPayment(el.dataset.id, 'MTN MoMo'); return; }
+  if(action === 'advance-job'){ advanceJob(el.dataset.id); return; }
+  if(action === 'toggle-task'){ toggleTask(el.dataset.job, el.dataset.task); return; }
+});
+
+document.addEventListener('change', e => {
+  const el = e.target.closest('[data-action="switch-role"]');
+  if(!el) return;
+  const role = el.value;
+  state.role = role;
+  state.view = ROLE_CONFIG[role].default;
+  state.modal = null;
+  if(role === 'customer') state.currentCustomerId = DB.customers[0]?.id || null;
+  render();
+});
+
+document.addEventListener('submit', e => {
+  const form = e.target.closest('form[data-form]');
+  if(!form) return;
+  e.preventDefault();
+  const type = form.dataset.form;
+
+  if(type === 'enquiry'){
+    const fd = new FormData(form);
+    createLead({
+      name: fd.get('name'), phone: fd.get('phone'),
+      email: fd.get('email') || '', service: fd.get('service'),
+      needs: fd.get('needs'), source: fd.get('source') || 'Website'
+    });
+    form.reset();
+    if(state.modal){ state.modal = null; render(); }
+    toast('Enquiry received — our team will contact you shortly.');
+    return;
+  }
+
+  if(type === 'create-quote'){
+    const leadId = form.dataset.lead;
+    const svcIds = [...form.querySelectorAll('input[name="svc"]:checked')].map(x=>x.value);
+    if(!svcIds.length){ toast('Select at least one service'); return; }
+    state.modal = null;
+    createQuote(leadId, svcIds);
+    return;
+  }
+});
+
+document.addEventListener('click', e => {
+  if(e.target.classList.contains('modal-backdrop')){
+    state.modal = null; render();
+  }
+});
+
+// ============ BOOT ============
+load();
+render();
+</script>
+</body>
+</html>
