@@ -3,13 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Customer Lifecycle Section</title>
+<title>StartEasy Zambia | Operating Model</title>
 <style>
-  /* Base styles for the section */
+  /* =========================================
+     BASE & VARIABLES
+     ========================================= */
   :root {
-    --bg-color: #F8FAFC;
+    --bg-body: #F8FAFC;
+    --bg-card: #FFFFFF;
     --text-main: #0F172A;
     --text-muted: #475569;
+    --border: #E2E8F0;
+    
+    /* Primary Colors (Teal/Green) */
+    --primary: #0F766E;
+    --primary-light: #ECFDF5;
     
     /* Blue Theme (Stages 1-4) */
     --blue-bg: #EFF6FF;
@@ -20,250 +28,533 @@
     --green-bg: #ECFDF5;
     --green-icon: #10B981;
     --green-text: #064E3B;
+    
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+    --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.05);
   }
 
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
   body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    background-color: var(--bg-color);
+    background-color: var(--bg-body);
+    color: var(--text-main);
     margin: 0;
-    padding: 40px 20px;
+    padding: 0;
+    line-height: 1.6;
+    font-size: 15px;
   }
 
-  .lifecycle-section {
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  /* =========================================
+     HERO HEADER
+     ========================================= */
+  header {
+    background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+    color: white;
+    padding: 60px 20px;
+    text-align: center;
+    border-bottom: 4px solid var(--primary);
+  }
+  header h1 {
+    font-size: 36px;
+    font-weight: 800;
+    margin: 0 0 16px 0;
+    letter-spacing: -0.02em;
+  }
+  header p {
+    font-size: 18px;
+    color: #94A3B8;
     max-width: 600px;
     margin: 0 auto;
+  }
+
+  /* =========================================
+     SECTION STYLES
+     ========================================= */
+  section {
+    padding: 80px 0;
+  }
+  section:nth-child(even) {
+    background-color: #FFFFFF;
+  }
+  .section-title {
     text-align: center;
+    margin-bottom: 48px;
   }
-
-  .lifecycle-section h2 {
-    font-size: 24px;
+  .section-title h2 {
+    font-size: 28px;
     font-weight: 700;
-    color: var(--text-main);
-    margin-bottom: 30px;
+    margin: 0 0 12px 0;
+  }
+  .section-title p {
+    color: var(--text-muted);
+    font-size: 16px;
+    max-width: 700px;
+    margin: 0 auto;
   }
 
-  /* The vertical flow container */
+  /* =========================================
+     LIFECYCLE FLOW (The Screenshots)
+     ========================================= */
   .lifecycle-flow {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 16px;
+    max-width: 600px;
+    margin: 0 auto;
   }
-
-  /* Individual Cards */
   .lifecycle-card {
     background: #ffffff;
     border-radius: 16px;
     padding: 30px 24px;
     width: 100%;
-    box-sizing: border-box;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    text-align: center;
+    box-shadow: var(--shadow-md);
     border: 1px solid rgba(0,0,0,0.04);
     transition: transform 0.2s ease;
   }
-
-  .lifecycle-card:hover {
-    transform: translateY(-2px);
-  }
-
-  /* Theme Modifiers */
-  .theme-blue {
-    background-color: var(--blue-bg);
-  }
-  .theme-blue .icon svg {
-    stroke: var(--blue-icon);
-  }
-  .theme-blue h3 {
-    color: var(--text-main);
-  }
-  .theme-blue p {
-    color: var(--blue-text);
-    opacity: 0.8;
-  }
-
-  .theme-green {
-    background-color: var(--green-bg);
-  }
-  .theme-green .icon svg {
-    stroke: var(--green-icon);
-  }
-  .theme-green h3 {
-    color: var(--text-main);
-  }
-  .theme-green p {
-    color: var(--green-text);
-    opacity: 0.8;
-  }
-
-  /* Card Content */
-  .icon {
-    margin-bottom: 12px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .icon svg {
-    width: 32px;
-    height: 32px;
-    fill: none;
-    stroke-width: 1.5;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
-
-  .lifecycle-card h3 {
-    font-size: 16px;
-    font-weight: 700;
-    margin: 0 0 8px 0;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-
-  .lifecycle-card p {
-    font-size: 14px;
-    margin: 0;
-    line-height: 1.5;
-    font-weight: 500;
-  }
-
-  /* Arrows */
-  .arrow-down {
-    color: #94A3B8;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 24px;
-  }
+  .lifecycle-card:hover { transform: translateY(-2px); }
   
-  .arrow-down svg {
-    width: 20px;
-    height: 20px;
-    stroke: currentColor;
-    stroke-width: 2;
-    fill: none;
-    stroke-linecap: round;
-    stroke-linejoin: round;
+  .theme-blue { background-color: var(--blue-bg); }
+  .theme-blue .icon svg { stroke: var(--blue-icon); }
+  .theme-blue p { color: var(--blue-text); opacity: 0.8; }
+  
+  .theme-green { background-color: var(--green-bg); }
+  .theme-green .icon svg { stroke: var(--green-icon); }
+  .theme-green p { color: var(--green-text); opacity: 0.8; }
+
+  .icon { margin-bottom: 12px; display: flex; justify-content: center; }
+  .icon svg { width: 32px; height: 32px; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+  
+  .lifecycle-card h3 { font-size: 16px; font-weight: 700; margin: 0 0 8px 0; text-transform: uppercase; letter-spacing: 0.5px; }
+  .lifecycle-card p { font-size: 14px; margin: 0; font-weight: 500; }
+
+  .arrow-down { color: #94A3B8; display: flex; justify-content: center; height: 24px; }
+  .arrow-down svg { width: 20px; height: 20px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* =========================================
+     ORG & HANDOVERS (Tables)
+     ========================================= */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  @media (max-width: 768px) { .grid-2 { grid-template-columns: 1fr; } }
+
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
   }
+  .card h3 { margin-top: 0; font-size: 18px; color: var(--primary); margin-bottom: 16px; }
+  
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th { text-align: left; padding: 12px; border-bottom: 2px solid var(--border); color: var(--text-muted); font-weight: 600; }
+  td { padding: 12px; border-bottom: 1px solid var(--border); }
+  tr:last-child td { border-bottom: none; }
+
+  /* =========================================
+     SYSTEMS (Cards Grid)
+     ========================================= */
+  .systems-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+  .system-card { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 24px; box-shadow: var(--shadow-sm); }
+  .system-card h4 { margin: 0 0 8px 0; font-size: 16px; color: var(--text-main); }
+  .system-card p { margin: 0; font-size: 14px; color: var(--text-muted); }
+
+  /* =========================================
+     PIPELINE (Horizontal Steps)
+     ========================================= */
+  .pipeline-wrapper { overflow-x: auto; padding-bottom: 16px; }
+  .pipeline { display: flex; align-items: center; gap: 8px; min-width: max-content; }
+  .pipe-step { background: white; border: 1px solid var(--border); padding: 10px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; box-shadow: var(--shadow-sm); }
+  .pipe-step span { color: var(--primary); margin-right: 6px; font-size: 11px; }
+  .pipe-arrow { color: #94A3B8; font-weight: bold; }
+  
+  .exception-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+  .tag-red { background: #FEF2F2; color: #991B1B; border: 1px solid #FECACA; padding: 6px 12px; border-radius: 99px; font-size: 13px; font-weight: 600; }
+
+  /* =========================================
+     KPIs
+     ========================================= */
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+  .kpi-card { background: white; border-top: 4px solid var(--primary); border-radius: 8px; padding: 20px; box-shadow: var(--shadow-sm); border-left: 1px solid var(--border); border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .kpi-card h4 { margin: 0 0 12px 0; font-size: 13px; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.5px; }
+  .kpi-item { margin-bottom: 12px; }
+  .kpi-item:last-child { margin-bottom: 0; }
+  .kpi-label { font-size: 14px; font-weight: 600; color: var(--text-main); }
+  .kpi-desc { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+  .formula-box { background: #0F172A; color: #E2E8F0; padding: 16px; border-radius: 8px; font-family: monospace; font-size: 14px; margin-top: 24px; text-align: center; }
+  .formula-box span { color: #5EEAD4; font-weight: bold; }
+
+  /* =========================================
+     JOB RECORD CARD
+     ========================================= */
+  .job-record { max-width: 800px; margin: 0 auto; background: white; border-radius: 12px; overflow: hidden; box-shadow: var(--shadow-lg); border: 1px solid var(--border); }
+  .job-header { background: var(--primary); color: white; padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; }
+  .job-id { font-family: monospace; font-size: 15px; font-weight: bold; background: rgba(255,255,255,0.2); padding: 4px 10px; border-radius: 6px; }
+  .job-body { padding: 24px; }
+  .job-meta-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+  @media (max-width: 600px) { .job-meta-grid { grid-template-columns: 1fr 1fr; } }
+  .meta-item .m-label { font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 700; margin-bottom: 4px; }
+  .meta-item .m-value { font-size: 14px; font-weight: 600; }
+  
+  .task-list { list-style: none; padding: 0; margin: 0; }
+  .task-item { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+  .task-item:last-child { border-bottom: none; }
+  .task-name { font-weight: 500; }
+  .badge { padding: 4px 10px; border-radius: 99px; font-size: 11px; font-weight: 700; text-transform: uppercase; }
+  .badge-done { background: #D1FAE5; color: #065F46; }
+  .badge-prog { background: #FEF3C7; color: #92400E; }
+  .badge-pend { background: #F1F5F9; color: #475569; }
+
 </style>
 </head>
 <body>
 
-<section class="lifecycle-section">
-  <h2>The complete customer lifecycle</h2>
-  
-  <div class="lifecycle-flow">
-    
-    <!-- STAGE 1 -->
-    <div class="lifecycle-card theme-blue">
-      <div class="icon">
-        <!-- Megaphone Icon -->
-        <svg viewBox="0 0 24 24"><path d="M3 11l18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 11-5.8-1.6"/></svg>
-      </div>
-      <h3>1. Marketing</h3>
-      <p>Awareness • Campaigns • Website • Social media</p>
-    </div>
-
-    <div class="arrow-down">
-      <svg viewBox="0 0 24 24"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
-    </div>
-
-    <!-- STAGE 2 -->
-    <div class="lifecycle-card theme-blue">
-      <div class="icon">
-        <!-- Users Icon -->
-        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-      </div>
-      <h3>2. Lead Generation & Customer Acquisition</h3>
-      <p>Enquiries • Lead capture • Customer identification</p>
-    </div>
-
-    <div class="arrow-down">
-      <svg viewBox="0 0 24 24"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
-    </div>
-
-    <!-- STAGE 3 -->
-    <div class="lifecycle-card theme-blue">
-      <div class="icon">
-        <!-- Handshake Icon -->
-        <svg viewBox="0 0 24 24"><path d="M20.4 8.6l-3-3a2 2 0 0 0-2.8 0l-4.4 4.4a2 2 0 0 1-2.8 0L4.6 7.2a2 2 0 0 0-2.8 0l-1.4 1.4a2 2 0 0 0 0 2.8l3 3a2 2 0 0 0 2.8 0l4.4-4.4a2 2 0 0 1 2.8 0l2.8 2.8a2 2 0 0 0 2.8 0l1.4-1.4a2 2 0 0 0 0-2.8z"/><path d="M15 13l-3 3"/><path d="M9 13l-3-3"/></svg>
-      </div>
-      <h3>3. Sales & Consultation</h3>
-      <p>Needs assessment • Follow-up • Conversion</p>
-    </div>
-
-    <div class="arrow-down">
-      <svg viewBox="0 0 24 24"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
-    </div>
-
-    <!-- STAGE 4 -->
-    <div class="lifecycle-card theme-blue">
-      <div class="icon">
-        <!-- Document Icon -->
-        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-      </div>
-      <h3>4. Quotation & Customer Approval</h3>
-      <p>Pricing • Service scope • Acceptance</p>
-    </div>
-
-    <div class="arrow-down">
-      <svg viewBox="0 0 24 24"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
-    </div>
-
-    <!-- STAGE 5 -->
-    <div class="lifecycle-card theme-green">
-      <div class="icon">
-        <!-- Credit Card Icon -->
-        <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-      </div>
-      <h3>5. Payment & Customer Onboarding</h3>
-      <p>Invoicing • Payment confirmation • Job creation</p>
-    </div>
-
-    <div class="arrow-down">
-      <svg viewBox="0 0 24 24"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
-    </div>
-
-    <!-- STAGE 6 -->
-    <div class="lifecycle-card theme-green">
-      <div class="icon">
-        <!-- Gear Icon -->
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-      </div>
-      <h3>6. Service Delivery</h3>
-      <p>Assignment • Execution • Quality assurance</p>
-    </div>
-
-    <div class="arrow-down">
-      <svg viewBox="0 0 24 24"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
-    </div>
-
-    <!-- STAGE 7 -->
-    <div class="lifecycle-card theme-green">
-      <div class="icon">
-        <!-- Check Circle Icon -->
-        <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-      </div>
-      <h3>7. Completion & Customer Support</h3>
-      <p>Handover • Feedback • Issue resolution</p>
-    </div>
-
-    <div class="arrow-down">
-      <svg viewBox="0 0 24 24"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
-    </div>
-
-    <!-- STAGE 8 -->
-    <div class="lifecycle-card theme-green">
-      <div class="icon">
-        <!-- Refresh Icon -->
-        <svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
-      </div>
-      <h3>8. Customer Retention & Referrals</h3>
-      <p>Repeat purchases • Relationships • Recommendations</p>
-    </div>
-
+<header>
+  <div class="container">
+    <h1>StartEasy Zambia Operating Model</h1>
+    <p>The complete, integrated framework for customer acquisition, sales, and service delivery.</p>
   </div>
-</section>
+</header>
+
+<main>
+
+  <!-- 1. THE LIFECYCLE (From Screenshots) -->
+  <section id="lifecycle">
+    <div class="container">
+      <div class="section-title">
+        <h2>The complete customer lifecycle</h2>
+        <p>Every customer moves through a clearly defined journey, ensuring StartEasy systematically converts enquiries into paying customers.</p>
+      </div>
+      
+      <div class="lifecycle-flow">
+        <!-- STAGE 1 -->
+        <div class="lifecycle-card theme-blue">
+          <div class="icon">
+            <svg viewBox="0 0 24 24"><path d="M3 11l18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 11-5.8-1.6"/></svg>
+          </div>
+          <h3>1. Marketing</h3>
+          <p>Awareness • Campaigns • Website • Social media</p>
+        </div>
+        <div class="arrow-down"><svg viewBox="0 0 24 24"><path d="M12 5v14M19 12l-7 7-7-7"/></svg></div>
+
+        <!-- STAGE 2 -->
+        <div class="lifecycle-card theme-blue">
+          <div class="icon">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3>2. Lead Generation & Customer Acquisition</h3>
+          <p>Enquiries • Lead capture • Customer identification</p>
+        </div>
+        <div class="arrow-down"><svg viewBox="0 0 24 24"><path d="M12 5v14M19 12l-7 7-7-7"/></svg></div>
+
+        <!-- STAGE 3 -->
+        <div class="lifecycle-card theme-blue">
+          <div class="icon">
+            <svg viewBox="0 0 24 24"><path d="M20.4 8.6l-3-3a2 2 0 0 0-2.8 0l-4.4 4.4a2 2 0 0 1-2.8 0L4.6 7.2a2 2 0 0 0-2.8 0l-1.4 1.4a2 2 0 0 0 0 2.8l3 3a2 2 0 0 0 2.8 0l4.4-4.4a2 2 0 0 1 2.8 0l2.8 2.8a2 2 0 0 0 2.8 0l1.4-1.4a2 2 0 0 0 0-2.8z"/><path d="M15 13l-3 3"/><path d="M9 13l-3-3"/></svg>
+          </div>
+          <h3>3. Sales & Consultation</h3>
+          <p>Needs assessment • Follow-up • Conversion</p>
+        </div>
+        <div class="arrow-down"><svg viewBox="0 0 24 24"><path d="M12 5v14M19 12l-7 7-7-7"/></svg></div>
+
+        <!-- STAGE 4 -->
+        <div class="lifecycle-card theme-blue">
+          <div class="icon">
+            <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          </div>
+          <h3>4. Quotation & Customer Approval</h3>
+          <p>Pricing • Service scope • Acceptance</p>
+        </div>
+        <div class="arrow-down"><svg viewBox="0 0 24 24"><path d="M12 5v14M19 12l-7 7-7-7"/></svg></div>
+
+        <!-- STAGE 5 -->
+        <div class="lifecycle-card theme-green">
+          <div class="icon">
+            <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+          </div>
+          <h3>5. Payment & Customer Onboarding</h3>
+          <p>Invoicing • Payment confirmation • Job creation</p>
+        </div>
+        <div class="arrow-down"><svg viewBox="0 0 24 24"><path d="M12 5v14M19 12l-7 7-7-7"/></svg></div>
+
+        <!-- STAGE 6 -->
+        <div class="lifecycle-card theme-green">
+          <div class="icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          </div>
+          <h3>6. Service Delivery</h3>
+          <p>Assignment • Execution • Quality assurance</p>
+        </div>
+        <div class="arrow-down"><svg viewBox="0 0 24 24"><path d="M12 5v14M19 12l-7 7-7-7"/></svg></div>
+
+        <!-- STAGE 7 -->
+        <div class="lifecycle-card theme-green">
+          <div class="icon">
+            <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <h3>7. Completion & Customer Support</h3>
+          <p>Handover • Feedback • Issue resolution</p>
+        </div>
+        <div class="arrow-down"><svg viewBox="0 0 24 24"><path d="M12 5v14M19 12l-7 7-7-7"/></svg></div>
+
+        <!-- STAGE 8 -->
+        <div class="lifecycle-card theme-green">
+          <div class="icon">
+            <svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+          </div>
+          <h3>8. Customer Retention & Referrals</h3>
+          <p>Repeat purchases • Relationships • Recommendations</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. DEPARTMENTAL RESPONSIBILITIES & HANDOVERS -->
+  <section id="departments">
+    <div class="container">
+      <div class="section-title">
+        <h2>Accountability & Handovers</h2>
+        <p>Marketing generates demand, Sales generates revenue, Operations delivers value, and Finance protects the money.</p>
+      </div>
+
+      <div class="grid-2">
+        <!-- Departments -->
+        <div class="card">
+          <h3>Departmental Responsibilities</h3>
+          <table>
+            <thead>
+              <tr><th>Department</th><th>Primary Responsibility</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>Marketing</strong></td><td>Attract and generate demand</td></tr>
+              <tr><td><strong>Sales</strong></td><td>Convert enquiries into paying customers</td></tr>
+              <tr><td><strong>Operations</strong></td><td>Execute purchased services</td></tr>
+              <tr><td><strong>Finance</strong></td><td>Manage quotations, invoices, payments</td></tr>
+            </tbody>
+          </table>
+          <p style="margin-top: 16px; font-size: 13px; color: var(--text-muted);"><em>Customer support can initially sit within Operations.</em></p>
+        </div>
+
+        <!-- Handovers -->
+        <div class="card">
+          <h3>Process Handovers</h3>
+          <table>
+            <thead>
+              <tr><th>Process</th><th>Accountable</th><th>Handover To</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Marketing campaign</td><td>Marketing</td><td>Sales</td></tr>
+              <tr><td>Lead qualification</td><td>Sales</td><td>Sales</td></tr>
+              <tr><td>Customer consultation</td><td>Sales</td><td>Operations (if technical)</td></tr>
+              <tr><td>Service pricing</td><td>Finance + Ops</td><td>Sales</td></tr>
+              <tr><td>Quotation & negotiation</td><td>Sales</td><td>Finance</td></tr>
+              <tr><td>Payment verification</td><td>Finance</td><td>Operations</td></tr>
+              <tr><td>Service execution</td><td>Operations</td><td>Customer Support</td></tr>
+            </tbody>
+          </table>
+          <p style="margin-top: 16px; font-size: 13px; background: #FEF3C7; color: #92400E; padding: 10px; border-radius: 6px;"><strong>Rule:</strong> Sales remains responsible for the customer relationship even after Operations takes over delivery.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. SYSTEMS & PIPELINE -->
+  <section id="systems">
+    <div class="container">
+      <div class="section-title">
+        <h2>Integrated Systems & Pipeline</h2>
+        <p>Avoid purchasing disconnected tools. Build one integrated system on GitHub and Firebase.</p>
+      </div>
+
+      <div class="systems-grid" style="margin-bottom: 48px;">
+        <div class="system-card">
+          <h4>CRM</h4>
+          <p>Stores customer information and tracks leads, sales and relationships.</p>
+        </div>
+        <div class="system-card">
+          <h4>Sales Tools</h4>
+          <p>Help salespeople communicate, follow up, prepare quotations and close deals.</p>
+        </div>
+        <div class="system-card">
+          <h4>Marketing Tools</h4>
+          <p>Manage campaigns, advertising and lead generation.</p>
+        </div>
+        <div class="system-card">
+          <h4>Finance Tools</h4>
+          <p>Manage invoicing, payments and accounting.</p>
+        </div>
+        <div class="system-card">
+          <h4>Project/Service Tools</h4>
+          <p>Assign jobs, track progress and manage delivery.</p>
+        </div>
+      </div>
+
+      <h3 style="text-align: center; margin-bottom: 24px;">StartEasy CRM Pipeline</h3>
+      <div class="pipeline-wrapper">
+        <div class="pipeline">
+          <div class="pipe-step"><span>01</span>New Lead</div><div class="pipe-arrow">→</div>
+          <div class="pipe-step"><span>02</span>Contacted</div><div class="pipe-arrow">→</div>
+          <div class="pipe-step"><span>03</span>Qualified</div><div class="pipe-arrow">→</div>
+          <div class="pipe-step"><span>04</span>Quotation Sent</div><div class="pipe-arrow">→</div>
+          <div class="pipe-step"><span>05</span>Negotiation</div><div class="pipe-arrow">→</div>
+          <div class="pipe-step"><span>06</span>Won - Awaiting Payment</div><div class="pipe-arrow">→</div>
+          <div class="pipe-step"><span>07</span>Paid - Onboarding</div><div class="pipe-arrow">→</div>
+          <div class="pipe-step"><span>08</span>In Service Delivery</div><div class="pipe-arrow">→</div>
+          <div class="pipe-step"><span>09</span>Completed</div><div class="pipe-arrow">→</div>
+          <div class="pipe-step"><span>10</span>Retained / Repeat</div>
+        </div>
+      </div>
+      
+      <div class="exception-tags">
+        <strong style="width: 100%; margin-bottom: 8px;">Exception Outcomes:</strong>
+        <span class="tag-red">Lost lead</span>
+        <span class="tag-red">Unresponsive</span>
+        <span class="tag-red">On hold</span>
+        <span class="tag-red">Cancelled</span>
+        <span class="tag-red">On hold in operations</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. KPIs -->
+  <section id="kpis">
+    <div class="container">
+      <div class="section-title">
+        <h2>Performance KPIs</h2>
+        <p>You cannot manage the process effectively without measuring performance.</p>
+      </div>
+
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <h4>Marketing</h4>
+          <div class="kpi-item">
+            <div class="kpi-label">Leads generated per month</div>
+            <div class="kpi-desc">Volume of enquiries</div>
+          </div>
+          <div class="kpi-item">
+            <div class="kpi-label">Cost per lead</div>
+            <div class="kpi-desc">Spend ÷ leads generated</div>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <h4>Sales</h4>
+          <div class="kpi-item">
+            <div class="kpi-label">Lead-to-customer conversion rate</div>
+            <div class="kpi-desc">Won ÷ leads generated</div>
+          </div>
+          <div class="kpi-item">
+            <div class="kpi-label">Revenue generated</div>
+            <div class="kpi-desc">Value of accepted quotations</div>
+          </div>
+          <div class="kpi-item">
+            <div class="kpi-label">Average time to close</div>
+            <div class="kpi-desc">Lead creation to acceptance</div>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <h4>Finance & Operations</h4>
+          <div class="kpi-item">
+            <div class="kpi-label">Payment collection rate</div>
+            <div class="kpi-desc">Invoices paid ÷ issued</div>
+          </div>
+          <div class="kpi-item">
+            <div class="kpi-label">Avg delivery time</div>
+            <div class="kpi-desc">Job creation to completion</div>
+          </div>
+          <div class="kpi-item">
+            <div class="kpi-label">First-time quality rate</div>
+            <div class="kpi-desc">Jobs passing QC without rework</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="formula-box">
+        Conversion Rate = (<span>Customers Won</span> ÷ <span>Leads Generated</span>) × 100
+        <br><br>
+        <span style="color: #94A3B8; font-size: 12px;">Example: 15 won / 100 leads = 15%</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. SERVICE JOB ID -->
+  <section id="job-record">
+    <div class="container">
+      <div class="section-title">
+        <h2>The Service Job ID</h2>
+        <p>Every purchased service generates a unique ID, giving management visibility into every assignment.</p>
+      </div>
+
+      <div class="job-record">
+        <div class="job-header">
+          <div>
+            <div style="font-size: 11px; text-transform: uppercase; opacity: 0.8;">Service Job</div>
+            <div style="font-size: 18px; font-weight: 700;">In Progress</div>
+          </div>
+          <div class="job-id">SE-JOB-2024-0001</div>
+        </div>
+        <div class="job-body">
+          <div class="job-meta-grid">
+            <div class="meta-item">
+              <div class="m-label">Customer</div>
+              <div class="m-value">ABC Enterprises</div>
+            </div>
+            <div class="meta-item">
+              <div class="m-label">Assigned Officer</div>
+              <div class="m-value">Operations Officer</div>
+            </div>
+            <div class="meta-item">
+              <div class="m-label">Payment</div>
+              <div class="m-value" style="color: #10B981;">Confirmed</div>
+            </div>
+            <div class="meta-item">
+              <div class="m-label">Target Completion</div>
+              <div class="m-value">Subject to regulatory</div>
+            </div>
+          </div>
+
+          <p style="margin-bottom: 16px; font-size: 14px;"><strong>Service:</strong> Limited Company Registration & Licensing</p>
+          
+          <div style="font-size: 12px; text-transform: uppercase; font-weight: 700; color: var(--text-muted); margin-bottom: 8px;">Task Tracking</div>
+          <ul class="task-list">
+            <li class="task-item">
+              <span class="task-name">1. Customer documents</span>
+              <span class="badge badge-done">Complete</span>
+            </li>
+            <li class="task-item">
+              <span class="task-name">2. PACRA application</span>
+              <span class="badge badge-prog">In Progress</span>
+            </li>
+            <li class="task-item">
+              <span class="task-name">3. ZRA onboarding</span>
+              <span class="badge badge-pend">Pending</span>
+            </li>
+            <li class="task-item">
+              <span class="task-name">4. ZEMA assessment</span>
+              <span class="badge badge-pend">Pending</span>
+            </li>
+            <li class="task-item">
+              <span class="task-name">5. Council licensing</span>
+              <span class="badge badge-pend">Pending</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
 
 </body>
 </html>
