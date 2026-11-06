@@ -3,34 +3,30 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>StartEasy Zambia | End-to-End Operating Model</title>
+<title>StartEasy Zambia | Operating Model</title>
 <style>
   /* =========================================
-     DESIGN SYSTEM & VARIABLES
+     DESIGN SYSTEM (STARTEASY BRAND COLORS)
      ========================================= */
   :root {
-    --bg-dark: #0F172A;
+    /* Logo Colors */
+    --brand-green-dark: #0B5917; /* Deep green from left side of logo */
+    --brand-green: #138A2A;      /* Vibrant green from bar charts */
+    --brand-green-light: #E8F5E9;/* Soft green background */
+    
+    --brand-orange: #F58220;     /* Vibrant orange from arrow/right side */
+    --brand-orange-dark: #A64B00;/* Darker orange for text readability */
+    --brand-orange-light: #FFF3E0;/* Soft orange background */
+
+    /* UI Colors */
     --bg-body: #F8FAFC;
     --bg-card: #FFFFFF;
-    
     --text-main: #1E293B;
     --text-muted: #64748B;
     --text-light: #F8FAFC;
-    
-    --primary: #0F766E;
-    --primary-light: #CCFBF1;
-    
-    /* Blue Theme (Stages 1-4) */
-    --blue-bg: #EFF6FF;
-    --blue-icon: #3B82F6;
-    --blue-text: #1E3A8A;
-    
-    /* Green Theme (Stages 5-8) */
-    --green-bg: #ECFDF5;
-    --green-icon: #10B981;
-    --green-text: #064E3B;
-    
     --border: #E2E8F0;
+    
+    --primary: var(--brand-green);
     --radius: 16px;
     --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
     --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
@@ -53,14 +49,15 @@
   }
 
   /* =========================================
-     HERO HEADER
+     HERO HEADER (Logo Gradient)
      ========================================= */
   header {
-    background: var(--bg-dark);
+    /* Gradient matching the logo transition */
+    background: linear-gradient(135deg, var(--brand-green-dark) 0%, var(--brand-green) 45%, var(--brand-orange) 100%);
     color: white;
     padding: 60px 20px;
     text-align: center;
-    border-bottom: 4px solid var(--primary);
+    border-bottom: 4px solid var(--brand-orange);
   }
   header h1 {
     font-size: 36px;
@@ -70,7 +67,7 @@
   }
   header p {
     font-size: 18px;
-    color: #94A3B8;
+    color: rgba(255, 255, 255, 0.9);
     max-width: 800px;
     margin: 0 auto;
   }
@@ -82,12 +79,16 @@
     flex-wrap: wrap;
     margin-top: 30px;
     font-size: 12px;
-    font-weight: 600;
-    color: var(--primary-light);
+    font-weight: 700;
+    color: white;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    background: rgba(0,0,0,0.2);
+    padding: 10px 20px;
+    border-radius: 99px;
+    display: inline-flex;
   }
-  .hero-flow span { opacity: 0.5; }
+  .hero-flow span { opacity: 0.6; }
 
   /* =========================================
      SECTION STYLES
@@ -106,6 +107,7 @@
     font-size: 28px;
     font-weight: 700;
     margin: 0 0 12px 0;
+    color: var(--brand-green-dark);
   }
   .section-title p {
     color: var(--text-muted);
@@ -115,7 +117,7 @@
   }
 
   /* =========================================
-     1. THE EXACT LIFECYCLE DESIGN (Restored)
+     1. THE EXACT LIFECYCLE DESIGN (Branded)
      ========================================= */
   .lifecycle-flow {
     display: flex;
@@ -137,22 +139,26 @@
   }
   .lifecycle-card:hover { transform: translateY(-2px); }
   
-  .theme-blue { background-color: var(--blue-bg); }
-  .theme-blue .icon svg { stroke: var(--blue-icon); }
-  .theme-blue p { color: var(--blue-text); opacity: 0.8; }
+  /* Stages 1-4 (Brand Green) */
+  .theme-blue { background-color: var(--brand-green-light); }
+  .theme-blue .icon svg { stroke: var(--brand-green); }
+  .theme-blue h3 { color: var(--brand-green-dark); }
+  .theme-blue p { color: var(--brand-green-dark); opacity: 0.8; }
   
-  .theme-green { background-color: var(--green-bg); }
-  .theme-green .icon svg { stroke: var(--green-icon); }
-  .theme-green p { color: var(--green-text); opacity: 0.8; }
+  /* Stages 5-8 (Brand Orange) */
+  .theme-green { background-color: var(--brand-orange-light); }
+  .theme-green .icon svg { stroke: var(--brand-orange); }
+  .theme-green h3 { color: var(--brand-orange-dark); }
+  .theme-green p { color: var(--brand-orange-dark); opacity: 0.8; }
 
   .icon { margin-bottom: 12px; display: flex; justify-content: center; }
-  .icon svg { width: 32px; height: 32px; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+  .icon svg { width: 32px; height: 32px; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
   
-  .lifecycle-card h3 { font-size: 16px; font-weight: 700; margin: 0 0 8px 0; text-transform: uppercase; letter-spacing: 0.5px; }
-  .lifecycle-card p { font-size: 14px; margin: 0; font-weight: 500; }
+  .lifecycle-card h3 { font-size: 16px; font-weight: 800; margin: 0 0 8px 0; text-transform: uppercase; letter-spacing: 0.5px; }
+  .lifecycle-card p { font-size: 14px; margin: 0; font-weight: 600; }
 
-  .arrow-down { color: #94A3B8; display: flex; justify-content: center; height: 24px; }
-  .arrow-down svg { width: 20px; height: 20px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .arrow-down { color: #CBD5E1; display: flex; justify-content: center; height: 24px; }
+  .arrow-down svg { width: 20px; height: 20px; stroke: currentColor; stroke-width: 2.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
 
   /* =========================================
      2. HANDOVERS & DEPARTMENTS (Grid)
@@ -166,64 +172,99 @@
     border-radius: 12px;
     padding: 24px;
     box-shadow: var(--shadow-sm);
+    border-top: 4px solid var(--brand-green);
   }
-  .card h3 { margin-top: 0; font-size: 18px; color: var(--primary); margin-bottom: 16px; }
+  .card h3 { margin-top: 0; font-size: 18px; color: var(--brand-green-dark); margin-bottom: 16px; }
   
   table { width: 100%; border-collapse: collapse; font-size: 14px; }
-  th { text-align: left; padding: 12px; border-bottom: 2px solid var(--border); color: var(--text-muted); font-weight: 600; }
+  th { text-align: left; padding: 12px; border-bottom: 2px solid var(--border); color: var(--text-muted); font-weight: 700; }
   td { padding: 12px; border-bottom: 1px solid var(--border); }
   tr:last-child td { border-bottom: none; }
+
+  /* Rule Callout */
+  .rule-box {
+    margin-top: 16px; 
+    font-size: 13px; 
+    background: var(--brand-orange-light); 
+    color: var(--brand-orange-dark); 
+    padding: 12px; 
+    border-radius: 8px; 
+    border: 1px solid #FFE0B2;
+    font-weight: 500;
+  }
 
   /* =========================================
      3. SYSTEMS & PIPELINE
      ========================================= */
   .systems-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 40px; }
   .system-card { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 20px; box-shadow: var(--shadow-sm); }
-  .system-card h4 { margin: 0 0 8px 0; font-size: 16px; color: var(--text-main); }
+  .system-card h4 { margin: 0 0 8px 0; font-size: 16px; color: var(--brand-green); }
   .system-card p { margin: 0; font-size: 13px; color: var(--text-muted); }
 
   .pipeline-wrapper { overflow-x: auto; padding-bottom: 16px; }
   .pipeline { display: flex; align-items: center; gap: 8px; min-width: max-content; }
-  .pipe-step { background: white; border: 1px solid var(--border); padding: 10px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; box-shadow: var(--shadow-sm); }
-  .pipe-step span { color: var(--primary); margin-right: 6px; font-size: 11px; }
-  .pipe-arrow { color: #94A3B8; font-weight: bold; }
+  .pipe-step { background: white; border: 1px solid var(--border); padding: 10px 16px; border-radius: 8px; font-size: 13px; font-weight: 700; box-shadow: var(--shadow-sm); }
+  .pipe-step span { color: var(--brand-orange); margin-right: 6px; font-size: 11px; }
+  .pipe-arrow { color: #CBD5E1; font-weight: bold; }
   
   .exception-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
-  .tag-red { background: #FEF2F2; color: #991B1B; border: 1px solid #FECACA; padding: 6px 12px; border-radius: 99px; font-size: 13px; font-weight: 600; }
+  .tag-red { background: #FEF2F2; color: #991B1B; border: 1px solid #FECACA; padding: 6px 12px; border-radius: 99px; font-size: 13px; font-weight: 700; }
 
   /* =========================================
      4. KPIs
      ========================================= */
   .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
-  .kpi-card { background: white; border-top: 4px solid var(--primary); border-radius: 8px; padding: 20px; box-shadow: var(--shadow-sm); border-left: 1px solid var(--border); border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-  .kpi-card h4 { margin: 0 0 12px 0; font-size: 13px; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.5px; }
+  .kpi-card { background: white; border-top: 4px solid var(--brand-green); border-radius: 8px; padding: 20px; box-shadow: var(--shadow-sm); border-left: 1px solid var(--border); border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .kpi-card:nth-child(2) { border-top-color: var(--brand-orange); }
+  .kpi-card:nth-child(3) { border-top-color: var(--brand-green-dark); }
+  
+  .kpi-card h4 { margin: 0 0 12px 0; font-size: 13px; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.5px; font-weight: 800; }
   .kpi-item { margin-bottom: 12px; }
   .kpi-item:last-child { margin-bottom: 0; }
-  .kpi-label { font-size: 14px; font-weight: 600; color: var(--text-main); }
+  .kpi-label { font-size: 14px; font-weight: 700; color: var(--text-main); }
   .kpi-desc { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
 
-  .formula-box { background: var(--bg-dark); color: #E2E8F0; padding: 16px; border-radius: 8px; font-family: monospace; font-size: 14px; margin-top: 24px; text-align: center; }
-  .formula-box span { color: #5EEAD4; font-weight: bold; }
+  .formula-box { 
+    background: var(--brand-green-dark); 
+    color: white; 
+    padding: 16px; 
+    border-radius: 8px; 
+    font-family: monospace; 
+    font-size: 14px; 
+    margin-top: 24px; 
+    text-align: center; 
+    border-left: 6px solid var(--brand-orange);
+  }
+  .formula-box span { color: var(--brand-orange); font-weight: bold; }
 
   /* =========================================
      5. SERVICE JOB ID CARD
      ========================================= */
   .job-record { max-width: 800px; margin: 0 auto; background: white; border-radius: 12px; overflow: hidden; box-shadow: var(--shadow-lg); border: 1px solid var(--border); }
-  .job-header { background: var(--primary); color: white; padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; }
-  .job-id { font-family: monospace; font-size: 15px; font-weight: bold; background: rgba(255,255,255,0.2); padding: 4px 10px; border-radius: 6px; }
+  .job-header { 
+    background: linear-gradient(90deg, var(--brand-green-dark) 0%, var(--brand-green) 100%); 
+    color: white; 
+    padding: 16px 24px; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+  }
+  .job-id { font-family: monospace; font-size: 15px; font-weight: bold; background: rgba(255,255,255,0.2); padding: 4px 10px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.3); }
   .job-body { padding: 24px; }
   .job-meta-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
   @media (max-width: 600px) { .job-meta-grid { grid-template-columns: 1fr 1fr; } }
-  .meta-item .m-label { font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 700; margin-bottom: 4px; }
-  .meta-item .m-value { font-size: 14px; font-weight: 600; }
+  .meta-item .m-label { font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 800; margin-bottom: 4px; }
+  .meta-item .m-value { font-size: 14px; font-weight: 700; }
   
   .task-list { list-style: none; padding: 0; margin: 0; }
   .task-item { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
   .task-item:last-child { border-bottom: none; }
-  .task-name { font-weight: 500; }
-  .badge { padding: 4px 10px; border-radius: 99px; font-size: 11px; font-weight: 700; text-transform: uppercase; }
+  .task-name { font-weight: 600; }
+  
+  /* Badges */
+  .badge { padding: 4px 10px; border-radius: 99px; font-size: 11px; font-weight: 800; text-transform: uppercase; }
   .badge-done { background: #D1FAE5; color: #065F46; }
-  .badge-prog { background: #FEF3C7; color: #92400E; }
+  .badge-prog { background: var(--brand-orange-light); color: var(--brand-orange-dark); }
   .badge-pend { background: #F1F5F9; color: #475569; }
 
 </style>
@@ -242,7 +283,7 @@
 
 <main>
 
-  <!-- 1. THE COMPLETE CUSTOMER LIFECYCLE (Exact match to screenshots) -->
+  <!-- 1. THE COMPLETE CUSTOMER LIFECYCLE -->
   <section id="lifecycle">
     <div class="container">
       <div class="section-title">
@@ -375,7 +416,9 @@
               <tr><td>Service execution</td><td>Operations</td><td>Customer Support</td></tr>
             </tbody>
           </table>
-          <p style="margin-top: 16px; font-size: 13px; background: #FEF3C7; color: #92400E; padding: 12px; border-radius: 8px; border: 1px solid #FDE68A;"><strong>Rule:</strong> Sales remains responsible for the customer relationship even after Operations takes over delivery.</p>
+          <div class="rule-box">
+            <strong>Rule:</strong> Sales remains responsible for the customer relationship even after Operations takes over delivery.
+          </div>
         </div>
       </div>
     </div>
@@ -412,7 +455,7 @@
         </div>
       </div>
 
-      <h3 style="text-align: center; margin-bottom: 24px;">StartEasy CRM Pipeline</h3>
+      <h3 style="text-align: center; margin-bottom: 24px; color: var(--brand-green-dark);">StartEasy CRM Pipeline</h3>
       <div class="pipeline-wrapper">
         <div class="pipeline">
           <div class="pipe-step"><span>01</span>New Lead</div><div class="pipe-arrow">→</div>
@@ -429,7 +472,7 @@
       </div>
       
       <div class="exception-tags">
-        <strong style="width: 100%; margin-bottom: 8px; font-size: 14px;">Exception Outcomes:</strong>
+        <strong style="width: 100%; margin-bottom: 8px; font-size: 14px; color: var(--text-main);">Exception Outcomes:</strong>
         <span class="tag-red">Lost lead</span>
         <span class="tag-red">Unresponsive</span>
         <span class="tag-red">On hold</span>
@@ -512,8 +555,8 @@
       <div class="job-record">
         <div class="job-header">
           <div>
-            <div style="font-size: 11px; text-transform: uppercase; opacity: 0.8;">Service Job</div>
-            <div style="font-size: 18px; font-weight: 700;">In Progress</div>
+            <div style="font-size: 11px; text-transform: uppercase; opacity: 0.9; font-weight: 700; letter-spacing: 0.5px;">Service Job</div>
+            <div style="font-size: 18px; font-weight: 800;">In Progress</div>
           </div>
           <div class="job-id">SE-JOB-2024-0001</div>
         </div>
@@ -529,7 +572,7 @@
             </div>
             <div class="meta-item">
               <div class="m-label">Payment</div>
-              <div class="m-value" style="color: #10B981;">Confirmed</div>
+              <div class="m-value" style="color: var(--brand-green);">Confirmed</div>
             </div>
             <div class="meta-item">
               <div class="m-label">Target Completion</div>
@@ -539,7 +582,7 @@
 
           <p style="margin-bottom: 16px; font-size: 14px;"><strong>Service:</strong> Limited Company Registration & Licensing</p>
           
-          <div style="font-size: 12px; text-transform: uppercase; font-weight: 700; color: var(--text-muted); margin-bottom: 8px;">Task Tracking</div>
+          <div style="font-size: 12px; text-transform: uppercase; font-weight: 800; color: var(--text-muted); margin-bottom: 8px;">Task Tracking</div>
           <ul class="task-list">
             <li class="task-item">
               <span class="task-name">1. Customer documents</span>
