@@ -3,598 +3,554 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>StartEasy Zambia | End-to-End Business Operations</title>
+<title>StartEasy Zambia | Operating Model</title>
 <style>
   /* =========================================
-     DESIGN SYSTEM & VARIABLES
+     BASE & VARIABLES
      ========================================= */
   :root {
-    --bg-dark: #0F172A;
     --bg-body: #F8FAFC;
     --bg-card: #FFFFFF;
+    --text-main: #0F172A;
+    --text-muted: #475569;
+    --border: #E2E8F0;
     
-    --text-main: #1E293B;
-    --text-muted: #64748B;
-    --text-light: #F8FAFC;
-    
+    /* Primary Colors */
     --primary: #0F766E;
     --primary-light: #CCFBF1;
     
-    --blue-accent: #3B82F6;
+    /* Blue Theme (Stages 1-4) */
     --blue-bg: #EFF6FF;
+    --blue-icon: #3B82F6;
+    --blue-text: #1E3A8A;
     
-    --green-accent: #10B981;
+    /* Green Theme (Stages 5-8) */
     --green-bg: #ECFDF5;
+    --green-icon: #10B981;
+    --green-text: #064E3B;
     
-    --amber-accent: #F59E0B;
-    --amber-bg: #FFFBEB;
-    
-    --border: #E2E8F0;
-    --radius: 12px;
     --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
-    --shadow-md: 0 4px 12px rgba(0,0,0,0.05);
-    --shadow-lg: 0 10px 25px rgba(0,0,0,0.1);
+    --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+    --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.05);
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
   body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     background-color: var(--bg-body);
     color: var(--text-main);
     line-height: 1.5;
+    font-size: 15px;
     -webkit-font-smoothing: antialiased;
   }
 
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
   /* =========================================
-     HEADER / HERO
+     HERO HEADER
      ========================================= */
-  .hero {
-    background-color: var(--bg-dark);
-    color: var(--text-light);
+  header {
+    background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+    color: white;
     padding: 60px 20px;
     text-align: center;
     border-bottom: 4px solid var(--primary);
   }
-  .hero h1 {
-    font-size: 14px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--primary-light);
-    margin-bottom: 12px;
-    font-weight: 700;
-  }
-  .hero h2 {
-    font-size: 32px;
+  header h1 {
+    font-size: 36px;
     font-weight: 800;
-    margin-bottom: 20px;
-    letter-spacing: -0.5px;
+    margin: 0 0 16px 0;
+    letter-spacing: -0.02em;
   }
-  .hero p {
-    font-size: 16px;
-    max-width: 800px;
-    margin: 0 auto;
+  header p {
+    font-size: 18px;
     color: #94A3B8;
-  }
-  .hero-flow {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin-top: 30px;
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--primary-light);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-  .hero-flow span { opacity: 0.6; }
-
-  /* =========================================
-     MAIN LAYOUT
-     ========================================= */
-  .container {
-    max-width: 1200px;
+    max-width: 700px;
     margin: 0 auto;
-    padding: 40px 20px 80px;
-  }
-
-  .section-header {
-    margin-bottom: 24px;
-  }
-  .section-header h3 {
-    font-size: 20px;
-    font-weight: 700;
-    color: var(--text-main);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .section-header p {
-    font-size: 14px;
-    color: var(--text-muted);
-    margin-top: 4px;
   }
 
   /* =========================================
-     THE 8-STAGE JOURNEY (Grid Layout)
+     SECTION STYLES
      ========================================= */
-  .journey-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-    margin-bottom: 40px;
+  section {
+    padding: 80px 0;
   }
-  @media (max-width: 1024px) { .journey-grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 640px) { .journey-grid { grid-template-columns: 1fr; } }
-
-  .stage-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 20px;
-    box-shadow: var(--shadow-sm);
-    position: relative;
-    display: flex;
-    flex-direction: column;
+  section:nth-child(even) {
+    background-color: #FFFFFF;
   }
-  
-  /* Connecting Arrows for Desktop */
-  @media (min-width: 1025px) {
-    .stage-card:not(:nth-child(4n))::after {
-      content: '→';
-      position: absolute;
-      right: -14px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #CBD5E1;
-      font-weight: bold;
-      font-size: 18px;
-      z-index: 10;
-    }
-    .stage-card:nth-child(4)::after {
-      content: '↓';
-      position: absolute;
-      right: 50%;
-      bottom: -22px;
-      transform: translateX(50%);
-      color: #CBD5E1;
-      font-weight: bold;
-      font-size: 18px;
-      z-index: 10;
-    }
-  }
-
-  .stage-card .num {
-    font-size: 11px;
-    font-weight: 800;
-    color: var(--primary);
-    letter-spacing: 1px;
-    margin-bottom: 8px;
-  }
-  .stage-card h4 {
-    font-size: 15px;
-    font-weight: 700;
-    margin-bottom: 12px;
-    line-height: 1.3;
-  }
-  .stage-card .desc {
-    font-size: 12px;
-    color: var(--text-muted);
-    margin-bottom: 16px;
-    flex-grow: 1;
-  }
-  
-  .role-tag {
-    display: inline-block;
-    font-size: 10px;
-    font-weight: 700;
-    text-transform: uppercase;
-    padding: 3px 8px;
-    border-radius: 4px;
-    margin-bottom: 12px;
-  }
-  .role-mkt { background: var(--blue-bg); color: var(--blue-accent); }
-  .role-sales { background: var(--amber-bg); color: var(--amber-accent); }
-  .role-fin { background: #F3E8FF; color: #8B5CF6; }
-  .role-ops { background: var(--green-bg); color: var(--green-accent); }
-
-  .handover-box {
-    background: #F8FAFC;
-    border: 1px dashed var(--border);
-    padding: 8px;
-    border-radius: 6px;
-    font-size: 11px;
-    color: var(--text-muted);
-  }
-  .handover-box strong { color: var(--text-main); }
-
-  /* =========================================
-     THE INTEGRATED ENGINE (Bottom Half)
-     ========================================= */
-  .engine-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-  }
-  @media (max-width: 900px) { .engine-grid { grid-template-columns: 1fr; } }
-
-  /* Service Job ID Card */
-  .job-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow-md);
-    overflow: hidden;
-  }
-  .job-header {
-    background: var(--primary);
-    color: white;
-    padding: 16px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .job-header .title { font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
-  .job-id { background: rgba(255,255,255,0.2); padding: 4px 10px; border-radius: 6px; font-family: monospace; font-size: 14px; font-weight: bold; }
-  
-  .job-body { padding: 20px; }
-  .job-meta {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin-bottom: 20px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid var(--border);
-  }
-  .job-meta .m-label { font-size: 10px; text-transform: uppercase; color: var(--text-muted); font-weight: 700; }
-  .job-meta .m-val { font-size: 13px; font-weight: 600; margin-top: 2px; }
-  
-  .task-list { list-style: none; }
-  .task-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
-  .task-item:last-child { border-bottom: none; }
-  .task-badge { padding: 2px 8px; border-radius: 99px; font-size: 10px; font-weight: 700; text-transform: uppercase; }
-  .bg-done { background: #D1FAE5; color: #065F46; }
-  .bg-prog { background: #FEF3C7; color: #92400E; }
-  .bg-pend { background: #F1F5F9; color: #475569; }
-
-  /* Systems & KPIs Panel */
-  .systems-panel {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-  }
-  
-  .systems-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 20px;
-    box-shadow: var(--shadow-sm);
-  }
-  .systems-card h4 { font-size: 15px; margin-bottom: 16px; color: var(--text-main); }
-  
-  .sys-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
-  .sys-row:last-child { border-bottom: none; }
-  .sys-name { font-weight: 600; }
-  .sys-purpose { color: var(--text-muted); font-size: 12px; text-align: right; max-width: 60%; }
-
-  .kpi-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 20px;
-    box-shadow: var(--shadow-sm);
-  }
-  .kpi-card h4 { font-size: 15px; margin-bottom: 16px; color: var(--text-main); }
-  .kpi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .kpi-item { background: #F8FAFC; padding: 12px; border-radius: 8px; border: 1px solid var(--border); }
-  .kpi-title { font-size: 11px; text-transform: uppercase; font-weight: 700; color: var(--text-muted); margin-bottom: 4px; }
-  .kpi-calc { font-size: 12px; font-weight: 600; color: var(--primary); }
-  
-  .formula {
-    margin-top: 12px;
-    background: var(--bg-dark);
-    color: white;
-    padding: 12px;
-    border-radius: 8px;
-    font-family: monospace;
-    font-size: 12px;
+  .section-title {
     text-align: center;
+    margin-bottom: 48px;
   }
-  .formula span { color: var(--green-accent); }
+  .section-title h2 {
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0 0 12px 0;
+  }
+  .section-title p {
+    color: var(--text-muted);
+    font-size: 16px;
+    max-width: 700px;
+    margin: 0 auto;
+  }
 
   /* =========================================
-     PIPELINE & EXCEPTIONS
+     THE RESTORED LIFECYCLE FLOW
      ========================================= */
-  .pipeline-section {
-    margin-top: 40px;
+  .lifecycle-flow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .lifecycle-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 30px 24px;
+    width: 100%;
+    text-align: center;
+    box-shadow: var(--shadow-md);
+    border: 1px solid rgba(0,0,0,0.04);
+    transition: transform 0.2s ease;
+  }
+  .lifecycle-card:hover { transform: translateY(-2px); }
+  
+  .theme-blue { background-color: var(--blue-bg); }
+  .theme-blue .icon svg { stroke: var(--blue-icon); }
+  .theme-blue p { color: var(--blue-text); opacity: 0.8; }
+  
+  .theme-green { background-color: var(--green-bg); }
+  .theme-green .icon svg { stroke: var(--green-icon); }
+  .theme-green p { color: var(--green-text); opacity: 0.8; }
+
+  .icon { margin-bottom: 12px; display: flex; justify-content: center; }
+  .icon svg { width: 32px; height: 32px; fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+  
+  .lifecycle-card h3 { font-size: 16px; font-weight: 700; margin: 0 0 8px 0; text-transform: uppercase; letter-spacing: 0.5px; }
+  .lifecycle-card p { font-size: 14px; margin: 0; font-weight: 500; }
+
+  .arrow-down { color: #94A3B8; display: flex; justify-content: center; height: 24px; }
+  .arrow-down svg { width: 20px; height: 20px; stroke: currentColor; stroke-width: 2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* =========================================
+     ORG & HANDOVERS (Tables)
+     ========================================= */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  @media (max-width: 768px) { .grid-2 { grid-template-columns: 1fr; } }
+
+  .card {
     background: var(--bg-card);
     border: 1px solid var(--border);
-    border-radius: var(--radius);
+    border-radius: 12px;
     padding: 24px;
     box-shadow: var(--shadow-sm);
   }
-  .pipeline-flow {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    overflow-x: auto;
-    padding-bottom: 12px;
-    margin-top: 16px;
-  }
-  .pipe-step {
-    background: #F1F5F9;
-    padding: 8px 14px;
-    border-radius: 6px;
-    font-size: 12px;
-    font-weight: 600;
-    white-space: nowrap;
-    border: 1px solid var(--border);
-  }
-  .pipe-step.highlight { background: var(--primary-light); color: var(--primary); border-color: var(--primary); }
+  .card h3 { margin-top: 0; font-size: 18px; color: var(--primary); margin-bottom: 16px; }
+  
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th { text-align: left; padding: 12px; border-bottom: 2px solid var(--border); color: var(--text-muted); font-weight: 600; }
+  td { padding: 12px; border-bottom: 1px solid var(--border); }
+  tr:last-child td { border-bottom: none; }
+
+  /* =========================================
+     SYSTEMS
+     ========================================= */
+  .systems-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+  .system-card { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 24px; box-shadow: var(--shadow-sm); }
+  .system-card h4 { margin: 0 0 8px 0; font-size: 16px; color: var(--text-main); }
+  .system-card p { margin: 0; font-size: 14px; color: var(--text-muted); }
+
+  /* =========================================
+     PIPELINE
+     ========================================= */
+  .pipeline-wrapper { overflow-x: auto; padding-bottom: 16px; }
+  .pipeline { display: flex; align-items: center; gap: 8px; min-width: max-content; }
+  .pipe-step { background: white; border: 1px solid var(--border); padding: 10px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; box-shadow: var(--shadow-sm); }
+  .pipe-step span { color: var(--primary); margin-right: 6px; font-size: 11px; }
   .pipe-arrow { color: #94A3B8; font-weight: bold; }
   
-  .exception-row {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin-top: 16px;
-    padding-top: 16px;
-    border-top: 1px dashed var(--border);
-  }
-  .exc-tag {
-    background: #FEF2F2;
-    color: #991B1B;
-    border: 1px solid #FECACA;
-    padding: 4px 10px;
-    border-radius: 99px;
-    font-size: 11px;
-    font-weight: 600;
-  }
+  .exception-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+  .tag-red { background: #FEF2F2; color: #991B1B; border: 1px solid #FECACA; padding: 6px 12px; border-radius: 99px; font-size: 13px; font-weight: 600; }
+
+  /* =========================================
+     KPIs
+     ========================================= */
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+  .kpi-card { background: white; border-top: 4px solid var(--primary); border-radius: 8px; padding: 20px; box-shadow: var(--shadow-sm); border-left: 1px solid var(--border); border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .kpi-card h4 { margin: 0 0 12px 0; font-size: 13px; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.5px; }
+  .kpi-item { margin-bottom: 12px; }
+  .kpi-item:last-child { margin-bottom: 0; }
+  .kpi-label { font-size: 14px; font-weight: 600; color: var(--text-main); }
+  .kpi-desc { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+  .formula-box { background: #0F172A; color: #E2E8F0; padding: 16px; border-radius: 8px; font-family: monospace; font-size: 14px; margin-top: 24px; text-align: center; }
+  .formula-box span { color: #5EEAD4; font-weight: bold; }
+
+  /* =========================================
+     JOB RECORD CARD
+     ========================================= */
+  .job-record { max-width: 800px; margin: 0 auto; background: white; border-radius: 12px; overflow: hidden; box-shadow: var(--shadow-lg); border: 1px solid var(--border); }
+  .job-header { background: var(--primary); color: white; padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; }
+  .job-id { font-family: monospace; font-size: 15px; font-weight: bold; background: rgba(255,255,255,0.2); padding: 4px 10px; border-radius: 6px; }
+  .job-body { padding: 24px; }
+  .job-meta-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+  @media (max-width: 600px) { .job-meta-grid { grid-template-columns: 1fr 1fr; } }
+  .meta-item .m-label { font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 700; margin-bottom: 4px; }
+  .meta-item .m-value { font-size: 14px; font-weight: 600; }
+  
+  .task-list { list-style: none; padding: 0; margin: 0; }
+  .task-item { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+  .task-item:last-child { border-bottom: none; }
+  .task-name { font-weight: 500; }
+  .badge { padding: 4px 10px; border-radius: 99px; font-size: 11px; font-weight: 700; text-transform: uppercase; }
+  .badge-done { background: #D1FAE5; color: #065F46; }
+  .badge-prog { background: #FEF3C7; color: #92400E; }
+  .badge-pend { background: #F1F5F9; color: #475569; }
+
 </style>
 </head>
 <body>
 
-<!-- HERO / OBJECTIVE -->
-<header class="hero">
-  <h1>STARTEASY ZAMBIA</h1>
-  <h2>End-to-End Business Operations & Customer Journey</h2>
-  <p>The objective is to ensure that StartEasy does not simply attract enquiries but systematically converts them into paying customers, delivers the promised services and generates repeat business.</p>
-  
-  <div class="hero-flow">
-    Marketing <span>→</span> Lead Gen <span>→</span> Acquisition <span>→</span> Sales <span>→</span> Quotation <span>→</span> Payment <span>→</span> Delivery <span>→</span> Retention
+<header>
+  <div class="container">
+    <h1>StartEasy Zambia</h1>
+    <p>End-to-End Business Operations & Customer Journey. A single, integrated operating system for customer acquisition, sales, and service delivery.</p>
   </div>
 </header>
 
-<main class="container">
+<main>
 
-  <!-- SECTION 1: THE COMPLETE CUSTOMER LIFECYCLE -->
-  <div class="section-header">
-    <h3>1. The Complete Customer Lifecycle</h3>
-    <p>Every customer moves through a clearly defined journey, with strict accountability and handover rules.</p>
-  </div>
+  <!-- 1. THE COMPLETE CUSTOMER LIFECYCLE (Restored Design) -->
+  <section id="lifecycle">
+    <div class="container">
+      <div class="section-title">
+        <h2>The complete customer lifecycle</h2>
+        <p>Every customer moves through a clearly defined journey, ensuring StartEasy systematically converts enquiries into paying customers.</p>
+      </div>
+      
+      <div class="lifecycle-flow">
+        <!-- STAGE 1 -->
+        <div class="lifecycle-card theme-blue">
+          <div class="icon">
+            <svg viewBox="0 0 24 24"><path d="M3 11l18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 11-5.8-1.6"/></svg>
+          </div>
+          <h3>1. Marketing</h3>
+          <p>Awareness • Campaigns • Website • Social media</p>
+        </div>
+        <div class="arrow-down"><svg viewBox="0 0 24 24"><path d="M12 5v14M19 12l-7 7-7-7"/></svg></div>
 
-  <div class="journey-grid">
-    <!-- 1. Marketing -->
-    <div class="stage-card">
-      <div class="num">STAGE 01</div>
-      <h4>Marketing</h4>
-      <div class="role-tag role-mkt">Marketing</div>
-      <div class="desc">Awareness • Campaigns • Website • Social media. Attracts the right audience to generate enquiries.</div>
-      <div class="handover-box">Handover: <strong>Marketing → Sales</strong></div>
+        <!-- STAGE 2 -->
+        <div class="lifecycle-card theme-blue">
+          <div class="icon">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3>2. Lead Generation & Customer Acquisition</h3>
+          <p>Enquiries • Lead capture • Customer identification</p>
+        </div>
+        <div class="arrow-down"><svg viewBox="0 0 24 24"><path d="M12 5v14M19 12l-7 7-7-7"/></svg></div>
+
+        <!-- STAGE 3 -->
+        <div class="lifecycle-card theme-blue">
+          <div class="icon">
+            <svg viewBox="0 0 24 24"><path d="M20.4 8.6l-3-3a2 2 0 0 0-2.8 0l-4.4 4.4a2 2 0 0 1-2.8 0L4.6 7.2a2 2 0 0 0-2.8 0l-1.4 1.4a2 2 0 0 0 0 2.8l3 3a2 2 0 0 0 2.8 0l4.4-4.4a2 2 0 0 1 2.8 0l2.8 2.8a2 2 0 0 0 2.8 0l1.4-1.4a2 2 0 0 0 0-2.8z"/><path d="M15 13l-3 3"/><path d="M9 13l-3-3"/></svg>
+          </div>
+          <h3>3. Sales & Consultation</h3>
+          <p>Needs assessment • Follow-up • Conversion</p>
+        </div>
+        <div class="arrow-down"><svg viewBox="0 0 24 24"><path d="M12 5v14M19 12l-7 7-7-7"/></svg></div>
+
+        <!-- STAGE 4 -->
+        <div class="lifecycle-card theme-blue">
+          <div class="icon">
+            <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          </div>
+          <h3>4. Quotation & Customer Approval</h3>
+          <p>Pricing • Service scope • Acceptance</p>
+        </div>
+        <div class="arrow-down"><svg viewBox="0 0 24 24"><path d="M12 5v14M19 12l-7 7-7-7"/></svg></div>
+
+        <!-- STAGE 5 -->
+        <div class="lifecycle-card theme-green">
+          <div class="icon">
+            <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+          </div>
+          <h3>5. Payment & Customer Onboarding</h3>
+          <p>Invoicing • Payment confirmation • Job creation</p>
+        </div>
+        <div class="arrow-down"><svg viewBox="0 0 24 24"><path d="M12 5v14M19 12l-7 7-7-7"/></svg></div>
+
+        <!-- STAGE 6 -->
+        <div class="lifecycle-card theme-green">
+          <div class="icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          </div>
+          <h3>6. Service Delivery</h3>
+          <p>Assignment • Execution • Quality assurance</p>
+        </div>
+        <div class="arrow-down"><svg viewBox="0 0 24 24"><path d="M12 5v14M19 12l-7 7-7-7"/></svg></div>
+
+        <!-- STAGE 7 -->
+        <div class="lifecycle-card theme-green">
+          <div class="icon">
+            <svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <h3>7. Completion & Customer Support</h3>
+          <p>Handover • Feedback • Issue resolution</p>
+        </div>
+        <div class="arrow-down"><svg viewBox="0 0 24 24"><path d="M12 5v14M19 12l-7 7-7-7"/></svg></div>
+
+        <!-- STAGE 8 -->
+        <div class="lifecycle-card theme-green">
+          <div class="icon">
+            <svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+          </div>
+          <h3>8. Customer Retention & Referrals</h3>
+          <p>Repeat purchases • Relationships • Recommendations</p>
+        </div>
+      </div>
     </div>
+  </section>
 
-    <!-- 2. Lead Generation -->
-    <div class="stage-card">
-      <div class="num">STAGE 02</div>
-      <h4>Lead Generation & Acquisition</h4>
-      <div class="role-tag role-sales">Sales</div>
-      <div class="desc">Enquiries • Lead capture • Customer identification. Captures and organises potential customers into the CRM.</div>
-      <div class="handover-box">Handover: <strong>Sales → Sales</strong></div>
+  <!-- 2. DEPARTMENTAL RESPONSIBILITIES & HANDOVERS -->
+  <section id="departments">
+    <div class="container">
+      <div class="section-title">
+        <h2>Accountability & Handovers</h2>
+        <p>Marketing generates demand, Sales generates revenue, Operations delivers value, and Finance protects the money.</p>
+      </div>
+
+      <div class="grid-2">
+        <!-- Departments -->
+        <div class="card">
+          <h3>Departmental Responsibilities</h3>
+          <table>
+            <thead>
+              <tr><th>Department</th><th>Primary Responsibility</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>Marketing</strong></td><td>Attract and generate demand</td></tr>
+              <tr><td><strong>Sales</strong></td><td>Convert enquiries into paying customers</td></tr>
+              <tr><td><strong>Operations</strong></td><td>Execute purchased services</td></tr>
+              <tr><td><strong>Finance</strong></td><td>Manage quotations, invoices, payments</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Handovers -->
+        <div class="card">
+          <h3>Process Handovers</h3>
+          <table>
+            <thead>
+              <tr><th>Process</th><th>Accountable</th><th>Handover To</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Marketing campaign</td><td>Marketing</td><td>Sales</td></tr>
+              <tr><td>Lead qualification</td><td>Sales</td><td>Sales</td></tr>
+              <tr><td>Customer consultation</td><td>Sales</td><td>Operations (if technical)</td></tr>
+              <tr><td>Service pricing</td><td>Finance + Ops</td><td>Sales</td></tr>
+              <tr><td>Quotation & negotiation</td><td>Sales</td><td>Finance</td></tr>
+              <tr><td>Payment verification</td><td>Finance</td><td>Operations</td></tr>
+              <tr><td>Service execution</td><td>Operations</td><td>Customer Support</td></tr>
+            </tbody>
+          </table>
+          <p style="margin-top: 16px; font-size: 13px; background: #FEF3C7; color: #92400E; padding: 12px; border-radius: 8px; border: 1px solid #FDE68A;"><strong>Rule:</strong> Sales remains responsible for the customer relationship even after Operations takes over delivery.</p>
+        </div>
+      </div>
     </div>
+  </section>
 
-    <!-- 3. Sales -->
-    <div class="stage-card">
-      <div class="num">STAGE 03</div>
-      <h4>Sales & Consultation</h4>
-      <div class="role-tag role-sales">Sales</div>
-      <div class="desc">Needs assessment • Follow-up • Conversion. Understands needs and recommends the appropriate service.</div>
-      <div class="handover-box">Handover: <strong>Sales → Operations (for tech)</strong></div>
+  <!-- 3. SYSTEMS & PIPELINE -->
+  <section id="systems">
+    <div class="container">
+      <div class="section-title">
+        <h2>Integrated Systems & Pipeline</h2>
+        <p>Avoid purchasing disconnected tools. Build one integrated system on GitHub and Firebase.</p>
+      </div>
+
+      <div class="systems-grid" style="margin-bottom: 48px;">
+        <div class="system-card">
+          <h4>CRM</h4>
+          <p>Stores customer information and tracks leads, sales and relationships.</p>
+        </div>
+        <div class="system-card">
+          <h4>Sales Tools</h4>
+          <p>Help salespeople communicate, follow up, prepare quotations and close deals.</p>
+        </div>
+        <div class="system-card">
+          <h4>Marketing Tools</h4>
+          <p>Manage campaigns, advertising and lead generation.</p>
+        </div>
+        <div class="system-card">
+          <h4>Finance Tools</h4>
+          <p>Manage invoicing, payments and accounting.</p>
+        </div>
+        <div class="system-card">
+          <h4>Project/Service Tools</h4>
+          <p>Assign jobs, track progress and manage delivery.</p>
+        </div>
+      </div>
+
+      <h3 style="text-align: center; margin-bottom: 24px;">StartEasy CRM Pipeline</h3>
+      <div class="pipeline-wrapper">
+        <div class="pipeline">
+          <div class="pipe-step"><span>01</span>New Lead</div><div class="pipe-arrow">→</div>
+          <div class="pipe-step"><span>02</span>Contacted</div><div class="pipe-arrow">→</div>
+          <div class="pipe-step"><span>03</span>Qualified</div><div class="pipe-arrow">→</div>
+          <div class="pipe-step"><span>04</span>Quotation Sent</div><div class="pipe-arrow">→</div>
+          <div class="pipe-step"><span>05</span>Negotiation</div><div class="pipe-arrow">→</div>
+          <div class="pipe-step"><span>06</span>Won - Awaiting Payment</div><div class="pipe-arrow">→</div>
+          <div class="pipe-step"><span>07</span>Paid - Onboarding</div><div class="pipe-arrow">→</div>
+          <div class="pipe-step"><span>08</span>In Service Delivery</div><div class="pipe-arrow">→</div>
+          <div class="pipe-step"><span>09</span>Completed</div><div class="pipe-arrow">→</div>
+          <div class="pipe-step"><span>10</span>Retained / Repeat</div>
+        </div>
+      </div>
+      
+      <div class="exception-tags">
+        <strong style="width: 100%; margin-bottom: 8px; font-size: 14px;">Exception Outcomes:</strong>
+        <span class="tag-red">Lost lead</span>
+        <span class="tag-red">Unresponsive</span>
+        <span class="tag-red">On hold</span>
+        <span class="tag-red">Cancelled</span>
+        <span class="tag-red">On hold in operations</span>
+      </div>
     </div>
+  </section>
 
-    <!-- 4. Quotation -->
-    <div class="stage-card">
-      <div class="num">STAGE 04</div>
-      <h4>Quotation & Approval</h4>
-      <div class="role-tag role-fin">Sales + Finance</div>
-      <div class="desc">Pricing • Service scope • Acceptance. Formalises the commercial agreement before delivery.</div>
-      <div class="handover-box">Handover: <strong>Sales → Finance</strong></div>
+  <!-- 4. KPIs -->
+  <section id="kpis">
+    <div class="container">
+      <div class="section-title">
+        <h2>Performance KPIs</h2>
+        <p>You cannot manage the process effectively without measuring performance.</p>
+      </div>
+
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <h4>Marketing</h4>
+          <div class="kpi-item">
+            <div class="kpi-label">Leads generated per month</div>
+            <div class="kpi-desc">Volume of enquiries</div>
+          </div>
+          <div class="kpi-item">
+            <div class="kpi-label">Cost per lead</div>
+            <div class="kpi-desc">Spend ÷ leads generated</div>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <h4>Sales</h4>
+          <div class="kpi-item">
+            <div class="kpi-label">Lead-to-customer conversion rate</div>
+            <div class="kpi-desc">Won ÷ leads generated</div>
+          </div>
+          <div class="kpi-item">
+            <div class="kpi-label">Revenue generated</div>
+            <div class="kpi-desc">Value of accepted quotations</div>
+          </div>
+          <div class="kpi-item">
+            <div class="kpi-label">Average time to close</div>
+            <div class="kpi-desc">Lead creation to acceptance</div>
+          </div>
+        </div>
+
+        <div class="kpi-card">
+          <h4>Finance & Operations</h4>
+          <div class="kpi-item">
+            <div class="kpi-label">Payment collection rate</div>
+            <div class="kpi-desc">Invoices paid ÷ issued</div>
+          </div>
+          <div class="kpi-item">
+            <div class="kpi-label">Avg delivery time</div>
+            <div class="kpi-desc">Job creation to completion</div>
+          </div>
+          <div class="kpi-item">
+            <div class="kpi-label">First-time quality rate</div>
+            <div class="kpi-desc">Jobs passing QC without rework</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="formula-box">
+        Conversion Rate = (<span>Customers Won</span> ÷ <span>Leads Generated</span>) × 100
+        <br><br>
+        <span style="color: #94A3B8; font-size: 12px;">Example: 15 won / 100 leads = 15%</span>
+      </div>
     </div>
+  </section>
 
-    <!-- 5. Payment -->
-    <div class="stage-card">
-      <div class="num">STAGE 05</div>
-      <h4>Payment & Onboarding</h4>
-      <div class="role-tag role-fin">Finance</div>
-      <div class="desc">Invoicing • Payment confirmation • Job creation. <strong>Gatekeeper rule:</strong> Operations cannot start without payment.</div>
-      <div class="handover-box">Handover: <strong>Finance → Operations</strong></div>
-    </div>
+  <!-- 5. SERVICE JOB ID -->
+  <section id="job-record">
+    <div class="container">
+      <div class="section-title">
+        <h2>The Service Job ID</h2>
+        <p>Every purchased service generates a unique ID, giving management visibility into every assignment.</p>
+      </div>
 
-    <!-- 6. Service Delivery -->
-    <div class="stage-card">
-      <div class="num">STAGE 06</div>
-      <h4>Service Delivery</h4>
-      <div class="role-tag role-ops">Operations</div>
-      <div class="desc">Assignment • Execution • Quality assurance. Delivers what was paid for, tracked by a unique Service Job ID.</div>
-      <div class="handover-box">Handover: <strong>Operations → Customer Support</strong></div>
-    </div>
-
-    <!-- 7. Completion -->
-    <div class="stage-card">
-      <div class="num">STAGE 07</div>
-      <h4>Completion & Support</h4>
-      <div class="role-tag role-ops">Operations</div>
-      <div class="desc">Handover • Feedback • Issue resolution. Ensures the customer receives and understands their deliverables.</div>
-      <div class="handover-box">Handover: <strong>Operations → Customer</strong></div>
-    </div>
-
-    <!-- 8. Retention -->
-    <div class="stage-card">
-      <div class="num">STAGE 08</div>
-      <h4>Retention & Referrals</h4>
-      <div class="role-tag role-sales">Support / Sales</div>
-      <div class="desc">Repeat purchases • Relationships • Recommendations. Turns one-time customers into long-term clients.</div>
-      <div class="handover-box">Handover: <strong>Support → Marketing</strong></div>
-    </div>
-  </div>
-
-  <!-- SECTION 2: THE INTEGRATED ENGINE -->
-  <div class="section-header">
-    <h3>2. The Integrated Operating Engine</h3>
-    <p>How the platform prevents customers from explaining their request repeatedly across disconnected systems.</p>
-  </div>
-
-  <div class="engine-grid">
-    
-    <!-- Left Side: Service Job ID -->
-    <div>
-      <div class="job-card">
+      <div class="job-record">
         <div class="job-header">
-          <div class="title">Service Job Record</div>
-          <div class="job-id">SE-JOB-2024-XXXX</div>
+          <div>
+            <div style="font-size: 11px; text-transform: uppercase; opacity: 0.8;">Service Job</div>
+            <div style="font-size: 18px; font-weight: 700;">In Progress</div>
+          </div>
+          <div class="job-id">SE-JOB-2024-0001</div>
         </div>
         <div class="job-body">
-          <div class="job-meta">
-            <div>
+          <div class="job-meta-grid">
+            <div class="meta-item">
               <div class="m-label">Customer</div>
-              <div class="m-val">ABC Enterprises</div>
+              <div class="m-value">ABC Enterprises</div>
             </div>
-            <div>
+            <div class="meta-item">
               <div class="m-label">Assigned Officer</div>
-              <div class="m-val">Operations Officer</div>
+              <div class="m-value">Operations Officer</div>
             </div>
-            <div>
-              <div class="m-label">Payment Status</div>
-              <div class="m-val" style="color: var(--green-accent);">Confirmed</div>
+            <div class="meta-item">
+              <div class="m-label">Payment</div>
+              <div class="m-value" style="color: #10B981;">Confirmed</div>
             </div>
-            <div>
+            <div class="meta-item">
               <div class="m-label">Target Completion</div>
-              <div class="m-val" style="font-weight: normal; font-size: 12px;">Subject to regulatory</div>
+              <div class="m-value" style="font-weight: 500; font-size: 13px;">Subject to regulatory processing</div>
             </div>
           </div>
+
+          <p style="margin-bottom: 16px; font-size: 14px;"><strong>Service:</strong> Limited Company Registration & Licensing</p>
           
-          <div style="font-size: 13px; font-weight: 600; margin-bottom: 8px;">Task Tracking:</div>
+          <div style="font-size: 12px; text-transform: uppercase; font-weight: 700; color: var(--text-muted); margin-bottom: 8px;">Task Tracking</div>
           <ul class="task-list">
             <li class="task-item">
-              <span>1. Customer documents</span>
-              <span class="task-badge bg-done">Complete</span>
+              <span class="task-name">1. Customer documents</span>
+              <span class="badge badge-done">Complete</span>
             </li>
             <li class="task-item">
-              <span>2. PACRA application</span>
-              <span class="task-badge bg-prog">In Progress</span>
+              <span class="task-name">2. PACRA application</span>
+              <span class="badge badge-prog">In Progress</span>
             </li>
             <li class="task-item">
-              <span>3. ZRA onboarding</span>
-              <span class="task-badge bg-pend">Pending</span>
+              <span class="task-name">3. ZRA onboarding</span>
+              <span class="badge badge-pend">Pending</span>
             </li>
             <li class="task-item">
-              <span>4. ZEMA assessment</span>
-              <span class="task-badge bg-pend">Pending</span>
+              <span class="task-name">4. ZEMA assessment</span>
+              <span class="badge badge-pend">Pending</span>
             </li>
             <li class="task-item">
-              <span>5. Council licensing</span>
-              <span class="task-badge bg-pend">Pending</span>
+              <span class="task-name">5. Council licensing</span>
+              <span class="badge badge-pend">Pending</span>
             </li>
           </ul>
         </div>
       </div>
     </div>
-
-    <!-- Right Side: Systems & KPIs -->
-    <div class="systems-panel">
-      
-      <!-- Systems -->
-      <div class="systems-card">
-        <h4>Integrated Systems (Built on GitHub & Firebase)</h4>
-        <div class="sys-row">
-          <div class="sys-name">CRM</div>
-          <div class="sys-purpose">Stores customer info & tracks sales</div>
-        </div>
-        <div class="sys-row">
-          <div class="sys-name">Sales Tools</div>
-          <div class="sys-purpose">Communicate, quote, close deals</div>
-        </div>
-        <div class="sys-row">
-          <div class="sys-name">Marketing Tools</div>
-          <div class="sys-purpose">Campaigns & lead generation</div>
-        </div>
-        <div class="sys-row">
-          <div class="sys-name">Finance Tools</div>
-          <div class="sys-purpose">Invoicing & payments</div>
-        </div>
-        <div class="sys-row">
-          <div class="sys-name">Ops/Service Tools</div>
-          <div class="sys-purpose">Assign jobs, track delivery</div>
-        </div>
-      </div>
-
-      <!-- KPIs -->
-      <div class="kpi-card">
-        <h4>Performance Measurement</h4>
-        <div class="kpi-grid">
-          <div class="kpi-item">
-            <div class="kpi-title">Marketing</div>
-            <div class="kpi-calc">Leads/month, Cost per lead</div>
-          </div>
-          <div class="kpi-item">
-            <div class="kpi-title">Sales</div>
-            <div class="kpi-calc">Conversion rate, Revenue</div>
-          </div>
-          <div class="kpi-item">
-            <div class="kpi-title">Finance</div>
-            <div class="kpi-calc">Collection rate</div>
-          </div>
-          <div class="kpi-item">
-            <div class="kpi-title">Operations</div>
-            <div class="kpi-calc">Jobs done, Quality rate</div>
-          </div>
-        </div>
-        <div class="formula">
-          Conversion = (<span>15</span> ÷ <span>100</span>) × 100 = <span>15%</span>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- SECTION 3: PIPELINE & EXCEPTIONS -->
-  <div class="pipeline-section">
-    <h4 style="font-size: 15px; margin-bottom: 4px;">CRM Pipeline Stages</h4>
-    <p style="font-size: 13px; color: var(--text-muted);">Every lead and customer is tracked through these defined stages.</p>
-    
-    <div class="pipeline-flow">
-      <div class="pipe-step">01 New Lead</div><div class="pipe-arrow">→</div>
-      <div class="pipe-step">02 Contacted</div><div class="pipe-arrow">→</div>
-      <div class="pipe-step">03 Qualified</div><div class="pipe-arrow">→</div>
-      <div class="pipe-step">04 Quotation Sent</div><div class="pipe-arrow">→</div>
-      <div class="pipe-step">05 Negotiation</div><div class="pipe-arrow">→</div>
-      <div class="pipe-step">06 Won - Awaiting Pay</div><div class="pipe-arrow">→</div>
-      <div class="pipe-step">07 Paid - Onboarding</div><div class="pipe-arrow">→</div>
-      <div class="pipe-step highlight">08 In Delivery</div><div class="pipe-arrow">→</div>
-      <div class="pipe-step">09 Completed</div><div class="pipe-arrow">→</div>
-      <div class="pipe-step">10 Retained</div>
-    </div>
-
-    <div class="exception-row">
-      <span style="font-size: 12px; font-weight: 700; color: var(--text-muted); margin-right: 8px;">Exception Outcomes:</span>
-      <span class="exc-tag">Lost lead</span>
-      <span class="exc-tag">Unresponsive</span>
-      <span class="exc-tag">On hold</span>
-      <span class="exc-tag">Cancelled</span>
-      <span class="exc-tag">On hold in operations</span>
-    </div>
-  </div>
+  </section>
 
 </main>
 
